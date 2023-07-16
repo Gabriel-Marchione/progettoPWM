@@ -1,4 +1,4 @@
-package com.progettopwm.progettopwm
+package com.progettopwm.progettopwm1
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

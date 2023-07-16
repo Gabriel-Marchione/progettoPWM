@@ -1,4 +1,4 @@
-package com.progettopwm.progettopwm
+package com.progettopwm.progettopwm1
 
 import android.content.Context
 import android.content.Intent
@@ -10,7 +10,7 @@ import android.view.Window
 import android.widget.Toast
 import com.example.progettopwm.R
 import com.example.progettopwm.databinding.ActivityLoginBinding
-import com.progettopwm.progettopwm.profiloUtente.ProfiloUtenteActivity
+import com.progettopwm.progettopwm1.profiloUtente.ProfiloUtenteActivity
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback

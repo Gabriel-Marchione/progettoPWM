@@ -1,4 +1,4 @@
-package com.progettopwm.progettopwm.profiloUtente
+package com.progettopwm.progettopwm1.profiloUtente
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.progettopwm.progettopwm.ClientNetwork
-import com.progettopwm.progettopwm.LoginActivity
+import com.progettopwm.progettopwm1.ClientNetwork
+import com.progettopwm.progettopwm1.LoginActivity
 import com.example.progettopwm.databinding.ActivityVisualizzazioneProfiloBinding
 import com.google.gson.JsonObject
 import retrofit2.Call
