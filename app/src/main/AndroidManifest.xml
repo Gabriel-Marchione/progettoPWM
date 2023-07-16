@@ -15,7 +15,7 @@
         android:theme="@style/Theme.ProgettoPWM"
         tools:targetApi="31">
         <activity
-            android:name="com.progettopwm.progettopwm1.LoginActivity"
+            android:name="com.progettopwm.progettopwm.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.progettopwm.progettopwm1.profiloUtente.ProfiloUtenteActivity">
+            android:name="com.progettopwm.progettopwm.profiloUtente.ProfiloUtenteActivity">
         </activity>
     </application>
 
