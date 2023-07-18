@@ -38,7 +38,7 @@ class ProfiloUtenteActivity : AppCompatActivity() {
             editor.apply()
             val editor2 = fileAvatar.edit()
             editor2.clear()
-            editor.apply()
+            editor2.apply()
             Toast.makeText(this@ProfiloUtenteActivity,"Disconnessione avvenuta con succeso", Toast.LENGTH_LONG).show()
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
@@ -50,9 +50,7 @@ class ProfiloUtenteActivity : AppCompatActivity() {
         }
 
         binding.avatarImageView.setOnClickListener {
-            val editor = fileAvatar.edit()
-            editor.putInt("idImmagineAvatar", R.drawable.avatar5)
-            editor.apply()
+            //TODO modificare?
         }
 
     }

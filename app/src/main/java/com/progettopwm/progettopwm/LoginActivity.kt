@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.Window
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.progettopwm.R
 import com.example.progettopwm.databinding.ActivityLoginBinding
 import com.progettopwm.progettopwm.profiloUtente.ProfiloUtenteActivity
@@ -19,6 +20,7 @@ import retrofit2.Response
 class LoginActivity : AppCompatActivity() {
     lateinit var binding : ActivityLoginBinding
     lateinit var filePre : SharedPreferences
+    var flagOcchioBarrato : Boolean = true //true occhio barrato, false aperto
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,20 +50,24 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Hai premuto registrazione", Toast.LENGTH_LONG).show()
             }
 
-            binding.mostraNascondiPassword.setOnClickListener {
-                val immagineCorrente = binding.mostraNascondiPassword.drawable
-                val immagineVecchia = resources.getDrawable(R.drawable.occhio_barrato, null)
-                val immagineNuova = resources.getDrawable(R.drawable.occhio_aperto, null)
+            binding.cancellaTesto.setOnClickListener {
+                binding.emailPlainText.text = null
+            }
 
-                if (immagineCorrente.constantState == immagineNuova.constantState) {
-                    binding.mostraNascondiPassword.setImageDrawable(immagineVecchia)
-                    binding.passwordPlainText.transformationMethod =
-                        PasswordTransformationMethod.getInstance()
-                } else {
-                    binding.mostraNascondiPassword.setImageDrawable(immagineNuova)
+            binding.mostraNascondiPassword.setOnClickListener {
+                if(flagOcchioBarrato){ //se l'occhio è barrato allora rendo visibile il testo e cambio immagine
+                    binding.mostraNascondiPassword.setImageResource(R.drawable.occhio_aperto)
                     binding.passwordPlainText.transformationMethod = null
+                    flagOcchioBarrato = false
+
+                }else{ //altrimenti, se l'occhio non è barrato, lo rendo nascosto e cambio immagine
+                    binding.mostraNascondiPassword.setImageResource(R.drawable.occhio_barrato)
+                    binding.passwordPlainText.transformationMethod = PasswordTransformationMethod.getInstance()
+                    flagOcchioBarrato = true
                 }
             }
+
+
 
         }
     }
