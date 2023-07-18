@@ -45,6 +45,7 @@ class ModificaAvatarCustomDialog(context: Context, ) : Dialog(context) {
         adapter = CustomAdapter(listaImmagini)
         binding.recyclerView.adapter = adapter
 
+        //aggiorno l'avatar in base alla posizione dell'immagine cliccata, salvando l'id dell'immagine nel file
         adapter.setOnClickListener(object : CustomAdapter.OnClickListener {
             override fun onClick(position: Int, model: Int) {
                 val alertDialog = AlertDialog.Builder(context)

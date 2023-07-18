@@ -29,6 +29,7 @@ class ProfiloUtenteActivity : AppCompatActivity() {
         filePre = this.getSharedPreferences("Credenziali", MODE_PRIVATE)
         fileAvatar = this.getSharedPreferences("File avatar", MODE_PRIVATE)
 
+        //mi prendo l'id dell'immagine che si trova nel file, ovvero quella selezionata nel dialog o scelta nella fase di registrazione
         binding.avatarImageView.setImageResource(fileAvatar.getInt("idImmagineAvatar", R.drawable.avatar)) // R.drawable.avatar è l'avatar di default
         effettuaQuery()
 
