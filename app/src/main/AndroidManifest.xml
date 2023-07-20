@@ -26,6 +26,10 @@
         <activity
             android:name="com.progettopwm.progettopwm.profiloUtente.ProfiloUtenteActivity">
         </activity>
+
+        <activity
+            android:name="com.progettopwm.progettopwm.registrazioneUtente.RegistrazioneUtenteActivity">
+        </activity>
     </application>
 
 </manifest>

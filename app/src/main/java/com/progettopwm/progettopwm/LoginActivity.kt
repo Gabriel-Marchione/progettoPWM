@@ -13,6 +13,7 @@ import com.example.progettopwm.R
 import com.example.progettopwm.databinding.ActivityLoginBinding
 import com.progettopwm.progettopwm.profiloUtente.ProfiloUtenteActivity
 import com.google.gson.JsonObject
+import com.progettopwm.progettopwm.registrazioneUtente.RegistrazioneUtenteActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,8 +38,7 @@ class LoginActivity : AppCompatActivity() {
             setContentView(binding.root)
 
             binding.loginButton.setOnClickListener {
-                if (binding.emailPlainText.text.toString().trim()
-                        .isEmpty() || binding.passwordPlainText.text.toString().trim().isEmpty()
+                if (binding.emailPlainText.text.toString().trim().isEmpty() || binding.passwordPlainText.text.toString().trim().isEmpty()
                 ) {
                     Toast.makeText(this, "Inserisci qualcosa nei campi", Toast.LENGTH_LONG).show()
                 } else {
@@ -47,7 +47,8 @@ class LoginActivity : AppCompatActivity() {
             }
 
             binding.registrazioneTextView.setOnClickListener {
-                Toast.makeText(this, "Hai premuto registrazione", Toast.LENGTH_LONG).show()
+                val intent = Intent(this, RegistrazioneUtenteActivity::class.java)
+                startActivity(intent)
             }
 
             binding.cancellaTesto.setOnClickListener {
@@ -74,7 +75,6 @@ class LoginActivity : AppCompatActivity() {
 
     fun effettuaQuery(){
         val query = "SELECT * FROM Utente WHERE email = '${binding.emailPlainText.text.toString().trim()}' AND password = '${binding.passwordPlainText.text.toString().trim()}'"
-        System.out.println(query)
         ClientNetwork.retrofit.select(query).enqueue(
             object : Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -106,6 +106,7 @@ class LoginActivity : AppCompatActivity() {
                         "Errore del Database o assenza di connessione",
                         Toast.LENGTH_LONG
                     ).show()
+                    System.out.println(t.message)
                 }
             }
         )
