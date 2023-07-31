@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
+import android.view.View
 import android.view.Window
 import android.widget.Toast
 import androidx.core.content.ContextCompat
