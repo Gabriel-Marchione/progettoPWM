@@ -1,4 +1,4 @@
-package com.progettopwm.progettopwm.profiloUtente
+package com.progettopwm.progettopwm.registrazioneUtente
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.progettopwm.R
 import com.example.progettopwm.databinding.ModificaAvatarCustomDialogBinding
 import com.example.progettopwm.databinding.SelezioneAvatarCardViewBinding
+import com.progettopwm.progettopwm.profiloUtente.CustomAdapter
+import com.progettopwm.progettopwm.profiloUtente.ProfiloUtenteActivity
 
-class ModificaAvatarCustomDialog(context: Context ) : Dialog(context) {
+class SelezioneAvatarCustomDialog(context: Context) : Dialog(context){
     private lateinit var binding: ModificaAvatarCustomDialogBinding
     private lateinit var binding2 : SelezioneAvatarCardViewBinding
     private lateinit var adapter: CustomAdapter

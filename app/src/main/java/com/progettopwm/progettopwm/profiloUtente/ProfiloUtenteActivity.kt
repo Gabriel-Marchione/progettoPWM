@@ -1,6 +1,5 @@
 package com.progettopwm.progettopwm.profiloUtente
 
-import ModificaAvatarCustomDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -12,6 +11,7 @@ import com.progettopwm.progettopwm.ClientNetwork
 import com.progettopwm.progettopwm.LoginActivity
 import com.example.progettopwm.databinding.ActivityVisualizzazioneProfiloBinding
 import com.google.gson.JsonObject
+import com.progettopwm.progettopwm.BenvenutoActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,7 +41,7 @@ class ProfiloUtenteActivity : AppCompatActivity() {
             editor2.clear()
             editor2.apply()
             Toast.makeText(this@ProfiloUtenteActivity,"Disconnessione avvenuta con succeso", Toast.LENGTH_LONG).show()
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, BenvenutoActivity::class.java)
             startActivity(intent)
         }
 
