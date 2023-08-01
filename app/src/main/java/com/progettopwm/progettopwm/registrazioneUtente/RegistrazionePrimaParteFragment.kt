@@ -32,10 +32,11 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
         val parentManager = parentFragmentManager
 
         if(arguments != null){
-            binding.emailRegistrazionePlainText.setText(arguments?.getString("email"))
-            binding.nomeRegistrazionePlainText.setText(arguments?.getString("nome"))
-            binding.cognomeRegistrazionePlainText.setText(arguments?.getString("cognome"))
-            binding.dataNascitaPlainText.setText(arguments?.getString("dataNascita"))
+            binding.emailRegistrazionePlainText.setText(arguments?.getString("email")?.trim())
+            binding.nomeRegistrazionePlainText.setText(arguments?.getString("nome")?.trim())
+            binding.cognomeRegistrazionePlainText.setText(arguments?.getString("cognome")?.trim())
+            binding.dataNascitaPlainText.setText(arguments?.getString("dataNascita")?.trim())
+            dataDaInserireDB = arguments?.getString("dataNascitaDB").toString().trim()
         }
         binding.continuaRegistrazioneButton.setOnClickListener {
             if (checkCampi()) {
@@ -106,7 +107,6 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
         val format2 = "yyyy-MM-dd"
         val sdf2 = SimpleDateFormat(format2, Locale.getDefault())
         dataDaInserireDB = sdf2.format(calendar.time)
-        Toast.makeText(context, dataDaInserireDB, Toast.LENGTH_LONG).show()
     }
 
     private fun checkCampi() : Boolean{
@@ -136,10 +136,11 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
 
     private fun addArgs() : Bundle{
         val message = Bundle()
-        message.putString("email", binding.nomeRegistrazionePlainText.text.toString().trim())
-        message.putString("nome", binding.cognomeRegistrazionePlainText.text.toString().trim())
-        message.putString("cognome", binding.emailRegistrazionePlainText.text.toString().trim())
-        message.putString("dataNascita", binding.dataNascitaPlainText.toString().trim())
+        message.putString("email", binding.emailRegistrazionePlainText.text.toString().trim())
+        message.putString("nome", binding.nomeRegistrazionePlainText.text.toString().trim())
+        message.putString("cognome", binding.cognomeRegistrazionePlainText.text.toString().trim())
+        message.putString("dataNascita", binding.dataNascitaPlainText.text.toString().trim())
+        message.putString("dataNascitaDB", dataDaInserireDB.trim())
         return message
     }
 

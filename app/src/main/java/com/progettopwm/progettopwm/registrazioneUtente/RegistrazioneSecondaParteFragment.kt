@@ -1,5 +1,6 @@
 package com.progettopwm.progettopwm.registrazioneUtente
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
@@ -9,11 +10,21 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.progettopwm.R
 import com.example.progettopwm.databinding.FragmentRegistrazioneSecondaParteBinding
+import com.google.gson.JsonObject
+import com.progettopwm.progettopwm.Utils.ClientNetwork
+import com.progettopwm.progettopwm.profiloUtente.ProfiloUtenteActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RegistrazioneSecondaParteFragment : Fragment(R.layout.fragment_registrazione_seconda_parte) {
     lateinit var binding : FragmentRegistrazioneSecondaParteBinding
     var flagOcchioBarrato : Boolean = true //true occhio barrato, false aperto
     private val TAG = "Fragment 2"
+    lateinit var email : String
+    lateinit var nome : String
+    lateinit var cognome : String
+    lateinit var dataNascita : String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,14 +34,20 @@ class RegistrazioneSecondaParteFragment : Fragment(R.layout.fragment_registrazio
         binding = FragmentRegistrazioneSecondaParteBinding.inflate(inflater)
         val parentManager = parentFragmentManager
         if(arguments!=null) {
-            val email = arguments?.getString("email")
-            val nome = arguments?.getString("nome")
-            val cognome = arguments?.getString("cognome")
-            val dataNascita = arguments?.getString("dataNascita")
+            email = arguments?.getString("email").toString().trim()
+            nome = arguments?.getString("nome").toString().trim()
+            cognome = arguments?.getString("cognome").toString().trim()
+            dataNascita = arguments?.getString("dataNascitaDB").toString().trim()
+
+            binding.confermaRegistrazione.setOnClickListener {
+                if (checkCampi()) {
+                    effettuaQuery()
+                }
+            }
+        }else {
+            Toast.makeText(context, "Problemi con i fragment", Toast.LENGTH_LONG).show()
         }
-        if(checkCampi()){
-            //query per inserimento dell'utente
-        }
+
 
         binding.tornaPrimaParte.setOnClickListener{
             val transaction = parentManager.beginTransaction()
@@ -92,5 +109,36 @@ class RegistrazioneSecondaParteFragment : Fragment(R.layout.fragment_registrazio
         }else
             Toast.makeText(this.requireContext(), "I campi sono vuoti", Toast.LENGTH_LONG).show()
         return check
+    }
+
+    private fun effettuaQuery(){
+        val query = "INSERT INTO Utente (email, nome, cognome, dataNascita, telefono, cartaCredito, password) " +
+                "VALUES ('${email}', '${nome}', '${cognome}', '${dataNascita}', '${binding.telefonoRegistrazionePlainText.text.toString().trim()}', " +
+                "'${binding.cartaCreditoRegistrazionePlainText.text.toString().trim()}', '${binding.passwordRegistrazionePlainText.text.toString().trim()}' )"
+        ClientNetwork.retrofit.insert(query).enqueue(
+            object : Callback<JsonObject>{
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    System.out.println(query)
+                    if(response.isSuccessful){
+                        Toast.makeText(context, "Ti sei registrato", Toast.LENGTH_LONG).show()
+                    }else{
+                        Toast.makeText(
+                            this@RegistrazioneSecondaParteFragment.requireContext(),
+                            "Errore del Database",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    System.out.println(query + "2")
+                    Toast.makeText(
+                        this@RegistrazioneSecondaParteFragment.requireContext(),
+                        "Errore del Database o di connessione, riprova ad effettuare la registrazione",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        )
     }
 }

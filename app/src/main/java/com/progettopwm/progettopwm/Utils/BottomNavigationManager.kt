@@ -1,10 +1,11 @@
-package com.progettopwm.progettopwm
+package com.progettopwm.progettopwm.Utils
 
 import android.content.Context
 import android.content.Intent
 import android.view.MenuItem
 import com.example.progettopwm.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.progettopwm.progettopwm.autenticazioneUtente.LoginActivity
 import com.progettopwm.progettopwm.registrazioneUtente.RegistrazioneUtenteActivity
 
 class BottomNavigationManager(private val context: Context, private val bottomNavigationView: BottomNavigationView) {

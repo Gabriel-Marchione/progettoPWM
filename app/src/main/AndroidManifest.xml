@@ -23,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.progettopwm.progettopwm.LoginActivity">
+        <activity android:name="com.progettopwm.progettopwm.autenticazioneUtente.LoginActivity">
         </activity>
         <activity
             android:name="com.progettopwm.progettopwm.profiloUtente.ProfiloUtenteActivity">

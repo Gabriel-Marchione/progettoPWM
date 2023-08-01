@@ -1,4 +1,4 @@
-package com.progettopwm.progettopwm
+package com.progettopwm.progettopwm.autenticazioneUtente
 
 import android.content.Context
 import android.content.Intent
@@ -6,14 +6,13 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
-import android.view.View
 import android.view.Window
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import com.example.progettopwm.R
 import com.example.progettopwm.databinding.ActivityLoginBinding
 import com.progettopwm.progettopwm.profiloUtente.ProfiloUtenteActivity
 import com.google.gson.JsonObject
+import com.progettopwm.progettopwm.Utils.ClientNetwork
 import com.progettopwm.progettopwm.registrazioneUtente.RegistrazioneUtenteActivity
 import retrofit2.Call
 import retrofit2.Callback

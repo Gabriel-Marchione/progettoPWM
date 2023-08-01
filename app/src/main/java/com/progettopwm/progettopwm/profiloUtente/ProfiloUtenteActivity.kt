@@ -7,9 +7,10 @@ import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.progettopwm.R
-import com.progettopwm.progettopwm.ClientNetwork
-import com.progettopwm.progettopwm.LoginActivity
+import com.progettopwm.progettopwm.Utils.ClientNetwork
 import com.example.progettopwm.databinding.ActivityVisualizzazioneProfiloBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.progettopwm.progettopwm.Utils.BottomNavigationManager
 import com.google.gson.JsonObject
 import com.progettopwm.progettopwm.BenvenutoActivity
 import retrofit2.Call
@@ -18,6 +19,7 @@ import retrofit2.Response
 
 class ProfiloUtenteActivity : AppCompatActivity() {
     lateinit var binding : ActivityVisualizzazioneProfiloBinding
+    lateinit var navigationManager: BottomNavigationManager
     lateinit var filePre : SharedPreferences
     lateinit var fileAvatar : SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?){
@@ -25,6 +27,11 @@ class ProfiloUtenteActivity : AppCompatActivity() {
         binding = ActivityVisualizzazioneProfiloBinding.inflate(layoutInflater)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(binding.root)
+
+        // Creiamo la navigation bar
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationBar)
+        bottomNavigationView.selectedItemId = R.id.profiloMenuItem
+        navigationManager = BottomNavigationManager(this, bottomNavigationView)
 
         filePre = this.getSharedPreferences("Credenziali", MODE_PRIVATE)
         fileAvatar = this.getSharedPreferences("File avatar", MODE_PRIVATE)

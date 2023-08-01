@@ -86,6 +86,7 @@
                 android:backgroundTint="#5EB4F9"
                 android:text="Registrati"
                 android:textColor="#fff"
+                android:textStyle="bold"
                 app:cornerRadius="80dp"
                 app:strokeColor="#fff"
                 app:strokeWidth="1dp" />
@@ -98,6 +99,7 @@
                 android:backgroundTint="#fff"
                 android:text="Accedi"
                 android:textColor="#01A4FF"
+                android:textStyle="bold"
                 app:cornerRadius="80dp"
                 app:strokeColor="#5EB4F9"
                 app:strokeWidth="1dp" />
