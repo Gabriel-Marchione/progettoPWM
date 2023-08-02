@@ -1,5 +1,6 @@
 package com.progettopwm.progettopwm.profiloUtente
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -41,15 +42,24 @@ class ProfiloUtenteActivity : AppCompatActivity() {
         effettuaQuery()
 
         binding.logoutButton.setOnClickListener {
-            val editor = filePre.edit()
-            editor.clear()
-            editor.apply()
-            val editor2 = fileAvatar.edit()
-            editor2.clear()
-            editor2.apply()
-            Toast.makeText(this@ProfiloUtenteActivity,"Disconnessione avvenuta con succeso", Toast.LENGTH_LONG).show()
-            val intent = Intent(this, BenvenutoActivity::class.java)
-            startActivity(intent)
+
+            val alertDialog = AlertDialog.Builder(this)
+                .setTitle("Conferma")
+                .setMessage("Vuoi effettuare il logout? Perderai la preferenza dell'avatar scelto ma potrai sceglierlo nuovamente.")
+                .setPositiveButton("Conferma") { dialog, which ->
+                    val editor = filePre.edit()
+                    editor.clear()
+                    editor.apply()
+                    val editor2 = fileAvatar.edit()
+                    editor2.clear()
+                    editor2.apply()
+                    Toast.makeText(this@ProfiloUtenteActivity,"Disconnessione avvenuta con succeso", Toast.LENGTH_LONG).show()
+                    val intent = Intent(this, BenvenutoActivity::class.java)
+                    startActivity(intent)
+                }
+                .setNegativeButton("Annulla", null)
+                .create()
+            alertDialog.show()
         }
 
         binding.cambiaAvatarButton.setOnClickListener {
@@ -58,13 +68,14 @@ class ProfiloUtenteActivity : AppCompatActivity() {
         }
 
         binding.avatarImageView.setOnClickListener {
-            //TODO modificare?
+            val dialog = ModificaAvatarCustomDialog(this)
+            dialog.show()
         }
 
     }
 
     fun effettuaQuery(){
-        val query = "SELECT nome, cognome, email, telefono, password " +  //manca la posizione
+        val query = "SELECT nome, cognome, email, telefono, password " +
                     "FROM Utente " +
                     "WHERE email = '${filePre.getString("Email", "")}'"
         ClientNetwork.retrofit.select(query).enqueue(

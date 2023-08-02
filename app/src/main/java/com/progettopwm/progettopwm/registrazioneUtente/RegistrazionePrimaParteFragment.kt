@@ -7,20 +7,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.progettopwm.R
 import com.example.progettopwm.databinding.FragmentRegistrazionePrimaParteBinding
+import com.progettopwm.progettopwm.profiloUtente.ModificaAvatarCustomDialog
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione_prima_parte) {
+class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione_prima_parte),
+    SelezioneAvatarCustomDialog.AvatarSelectionListener {
 
     lateinit var binding: FragmentRegistrazionePrimaParteBinding
-    lateinit var filePre : SharedPreferences
     lateinit var dataDaInserireDB : String
+    lateinit var fileAvatarRegistrazione : SharedPreferences
     private val TAG = "Fragment 1"
 
     override fun onCreateView(
@@ -31,7 +34,10 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
         binding = FragmentRegistrazionePrimaParteBinding.inflate(inflater)
         val parentManager = parentFragmentManager
 
+        fileAvatarRegistrazione = context?.getSharedPreferences("File avatar registrazione", AppCompatActivity.MODE_PRIVATE)!!
+
         if(arguments != null){
+            binding.selezioneAvatarRegistrazioneImageView.setImageResource(fileAvatarRegistrazione.getInt("idImmagineAvatarRegistrazione", R.drawable.avatar))
             binding.emailRegistrazionePlainText.setText(arguments?.getString("email")?.trim())
             binding.nomeRegistrazionePlainText.setText(arguments?.getString("nome")?.trim())
             binding.cognomeRegistrazionePlainText.setText(arguments?.getString("cognome")?.trim())
@@ -76,6 +82,18 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
         }
         binding.selezionaDataNascita.setOnClickListener {
             DatePickerDialog(this.requireContext(), datePicker, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
+        }
+
+        binding.selezioneAvatarRegistrazioneImageView.setOnClickListener {
+            val dialog = SelezioneAvatarCustomDialog(requireContext())
+            dialog.setAvatarSelectionListener(this) // Imposta il listener su questo frammento
+            dialog.show()
+        }
+
+        binding.sceltaAvatarTextView.setOnClickListener {
+            val dialog = SelezioneAvatarCustomDialog(requireContext())
+            dialog.setAvatarSelectionListener(this) // Imposta il listener su questo frammento
+            dialog.show()
         }
 
         binding.cancellaEmail.setOnClickListener {
@@ -136,6 +154,7 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
 
     private fun addArgs() : Bundle{
         val message = Bundle()
+        message.putInt("idImmagineAvatarRegistrazione", fileAvatarRegistrazione.getInt("idImmagineAvatarRegistrazione", R.drawable.avatar))
         message.putString("email", binding.emailRegistrazionePlainText.text.toString().trim())
         message.putString("nome", binding.nomeRegistrazionePlainText.text.toString().trim())
         message.putString("cognome", binding.cognomeRegistrazionePlainText.text.toString().trim())
@@ -147,5 +166,12 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
     private fun fragmentExists(parentManager: FragmentManager, tag: String): Boolean {
         val fragment = parentManager.findFragmentByTag(tag)
         return fragment != null
+    }
+    override fun onAvatarSelected(avatarResId: Int) {
+        // Aggiorna l'immagine nel frammento con l'avatar selezionato
+        binding.selezioneAvatarRegistrazioneImageView.setImageResource(avatarResId)
+        val editor = fileAvatarRegistrazione.edit()
+        editor.putInt("idImmagineAvatarRegistrazione", avatarResId)
+        editor.apply()
     }
 }

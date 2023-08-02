@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.progettopwm.R
+import com.example.progettopwm.databinding.FragmentRegistrazionePrimaParteBinding
 import com.example.progettopwm.databinding.FragmentRegistrazioneSecondaParteBinding
 import com.google.gson.JsonObject
 import com.progettopwm.progettopwm.Utils.ClientNetwork
@@ -16,24 +17,28 @@ import com.progettopwm.progettopwm.profiloUtente.ProfiloUtenteActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.properties.Delegates
 
 class RegistrazioneSecondaParteFragment : Fragment(R.layout.fragment_registrazione_seconda_parte) {
     lateinit var binding : FragmentRegistrazioneSecondaParteBinding
+    lateinit var binding2 : FragmentRegistrazionePrimaParteBinding
     var flagOcchioBarrato : Boolean = true //true occhio barrato, false aperto
     private val TAG = "Fragment 2"
     lateinit var email : String
     lateinit var nome : String
     lateinit var cognome : String
     lateinit var dataNascita : String
-
+    var avatar : Int = 0
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegistrazioneSecondaParteBinding.inflate(inflater)
+        binding2 = FragmentRegistrazionePrimaParteBinding.inflate(inflater)
         val parentManager = parentFragmentManager
         if(arguments!=null) {
+            avatar = arguments?.getInt("idImmagineAvatarRegistrazione")!!
             email = arguments?.getString("email").toString().trim()
             nome = arguments?.getString("nome").toString().trim()
             cognome = arguments?.getString("cognome").toString().trim()
@@ -118,9 +123,12 @@ class RegistrazioneSecondaParteFragment : Fragment(R.layout.fragment_registrazio
         ClientNetwork.retrofit.insert(query).enqueue(
             object : Callback<JsonObject>{
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                    System.out.println(query)
                     if(response.isSuccessful){
-                        Toast.makeText(context, "Ti sei registrato", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this@RegistrazioneSecondaParteFragment.requireContext(), RegistrazioneCompletataActivity::class.java)
+                        intent.putExtra("Email", email)
+                        intent.putExtra("Password", binding.passwordRegistrazionePlainText.text.toString().trim())
+                        intent.putExtra("idImmagineAvatarRegistrazione", avatar)
+                        startActivity(intent)
                     }else{
                         Toast.makeText(
                             this@RegistrazioneSecondaParteFragment.requireContext(),
@@ -131,7 +139,6 @@ class RegistrazioneSecondaParteFragment : Fragment(R.layout.fragment_registrazio
                 }
 
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                    System.out.println(query + "2")
                     Toast.makeText(
                         this@RegistrazioneSecondaParteFragment.requireContext(),
                         "Errore del Database o di connessione, riprova ad effettuare la registrazione",

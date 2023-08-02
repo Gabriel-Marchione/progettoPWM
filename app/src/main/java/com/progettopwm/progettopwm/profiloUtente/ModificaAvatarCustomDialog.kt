@@ -37,10 +37,10 @@ class ModificaAvatarCustomDialog(context: Context ) : Dialog(context) {
         setContentView(binding.root)
 
         fileAvatar = context.getSharedPreferences("File avatar", AppCompatActivity.MODE_PRIVATE)
-        binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerViewModificaAvatar.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         adapter = CustomAdapter(listaImmagini)
-        binding.recyclerView.adapter = adapter
+        binding.recyclerViewModificaAvatar.adapter = adapter
 
         //aggiorno l'avatar in base alla posizione dell'immagine cliccata, salvando l'id dell'immagine nel file
         adapter.setOnClickListener(object : CustomAdapter.OnClickListener {
