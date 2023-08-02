@@ -7,6 +7,7 @@ import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import com.example.progettopwm.databinding.ActivityBenvenutoBinding
 import com.progettopwm.progettopwm.autenticazioneUtente.LoginActivity
+import com.progettopwm.progettopwm.homepage.HomepageActivity
 import com.progettopwm.progettopwm.profiloUtente.ProfiloUtenteActivity
 import com.progettopwm.progettopwm.registrazioneUtente.RegistrazioneUtenteActivity
 
@@ -20,8 +21,7 @@ class BenvenutoActivity : AppCompatActivity() {
         filePre = this.getSharedPreferences("Credenziali", MODE_PRIVATE)
 
         if (!filePre.getString("Email", "").equals("")) {
-            //da cambiare con la futura homepage
-            val intent = Intent(this@BenvenutoActivity, ProfiloUtenteActivity::class.java)
+            val intent = Intent(this@BenvenutoActivity, HomepageActivity::class.java)
             startActivity(intent)
         } else {
             supportRequestWindowFeature(Window.FEATURE_NO_TITLE)

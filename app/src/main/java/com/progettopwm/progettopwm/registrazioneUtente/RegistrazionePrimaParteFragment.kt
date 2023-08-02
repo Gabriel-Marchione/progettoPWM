@@ -1,6 +1,7 @@
 package com.progettopwm.progettopwm.registrazioneUtente
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.progettopwm.R
 import com.example.progettopwm.databinding.FragmentRegistrazionePrimaParteBinding
+import com.progettopwm.progettopwm.autenticazioneUtente.LoginActivity
 import com.progettopwm.progettopwm.profiloUtente.ModificaAvatarCustomDialog
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -113,6 +115,10 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
             dataDaInserireDB = ""
         }
 
+        binding.vaiALoginRegistrazioneFragmentTextView.setOnClickListener {
+            val intent = Intent(this.context, LoginActivity::class.java)
+            startActivity(intent)
+        }
         return binding.root
     }
 

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import com.example.progettopwm.databinding.ActivityRegistrazioneCompletataBinding
+import com.progettopwm.progettopwm.homepage.HomepageActivity
 import com.progettopwm.progettopwm.profiloUtente.ProfiloUtenteActivity
 
 class RegistrazioneCompletataActivity : AppCompatActivity() {
@@ -39,7 +40,7 @@ class RegistrazioneCompletataActivity : AppCompatActivity() {
         editorProfiloUtente.apply()
 
         binding.completaRegistrazioneButton.setOnClickListener{
-            val intent = Intent(this, ProfiloUtenteActivity::class.java)
+            val intent = Intent(this, HomepageActivity::class.java)
             startActivity(intent)
         }
     }

@@ -13,6 +13,7 @@ import com.example.progettopwm.databinding.ActivityLoginBinding
 import com.progettopwm.progettopwm.profiloUtente.ProfiloUtenteActivity
 import com.google.gson.JsonObject
 import com.progettopwm.progettopwm.Utils.ClientNetwork
+import com.progettopwm.progettopwm.homepage.HomepageActivity
 import com.progettopwm.progettopwm.registrazioneUtente.RegistrazioneUtenteActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -89,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
                                 editor.putString("Email", email)
                                 editor.putString("Password", password)
                                 editor.apply()
-                                val intent = Intent(this@LoginActivity, ProfiloUtenteActivity::class.java)
+                                val intent = Intent(this@LoginActivity, HomepageActivity::class.java)
                                 startActivity(intent)
                             }else{
                                 Toast.makeText(this@LoginActivity, "Credenziali errate", Toast.LENGTH_LONG).show()
