@@ -30,11 +30,6 @@ class LoginActivity : AppCompatActivity() {
 
         filePre = this.getSharedPreferences("Credenziali", MODE_PRIVATE)
 
-        if (!filePre.getString("Email", "").equals("")) {
-            //da cambiare con la futura homepage
-            val intent = Intent(this@LoginActivity, ProfiloUtenteActivity::class.java)
-            startActivity(intent)
-        } else {
             supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
             setContentView(binding.root)
 
@@ -69,7 +64,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-        }
+
     }
 
     fun effettuaQuery(){

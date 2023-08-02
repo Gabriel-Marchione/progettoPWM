@@ -4,11 +4,18 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Window
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.progettopwm.R
 import com.example.progettopwm.databinding.ActivityHomepageBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.gson.JsonObject
 import com.progettopwm.progettopwm.Utils.BottomNavigationManager
+import com.progettopwm.progettopwm.Utils.ClientNetwork
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomepageActivity : AppCompatActivity() {
     lateinit var binding : ActivityHomepageBinding
@@ -34,18 +41,50 @@ class HomepageActivity : AppCompatActivity() {
         bottomNavigationView.selectedItemId = R.id.homepageMenuItem
         navigationManager = BottomNavigationManager(this, bottomNavigationView)
 
+        effettuaQuery(listaBottoni)
+
         listaBottoni.forEachIndexed { index, bottone ->
             bottone.setOnClickListener {
                 //bottone.setBackgroundColor(Color.RED)
                 val contenutoBottone = bottone.text.toString().trim()
-                effettuaQuery(contenutoBottone)
+
             }
         }
     }
 
-    fun effettuaQuery(numeroLettinoButton : String){
-        val query = "query"
-        System.out.println(numeroLettinoButton)
+    fun effettuaQuery(listaBottoni : List<Button>){
+        val query = "SELECT idLettino, flagPrenotazione FROM Lettino WHERE flagPrenotazione = '1'"
+        ClientNetwork.retrofit.select(query).enqueue(
+            object : Callback<JsonObject>{
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    if(response.isSuccessful){
+                        if(response.body() != null){
+                            System.out.println(response.body())
+                            val obj = response.body()?.getAsJsonArray("queryset")
+                            if(obj != null){
+                                var numero : Int? = 0
+                                for (i in 0 until obj.size()){
+                                    numero = obj[i].asJsonObject?.get("idLettino")?.toString()?.trim('"')?.toInt()
+                                    System.out.println(numero)
+                                    System.out.println(listaBottoni[numero!!])
+                                    listaBottoni[numero?.minus(1)!!].setBackgroundColor(Color.RED)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    Toast.makeText(
+                        this@HomepageActivity,
+                        "Errore del Database o assenza di connessione",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    System.out.println(t.message)
+                }
+
+            }
+        )
     }
 
 

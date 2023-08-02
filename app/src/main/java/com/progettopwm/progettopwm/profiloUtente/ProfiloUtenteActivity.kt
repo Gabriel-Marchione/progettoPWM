@@ -75,7 +75,7 @@ class ProfiloUtenteActivity : AppCompatActivity() {
     }
 
     fun effettuaQuery(){
-        val query = "SELECT nome, cognome, email, telefono, password " +
+        val query = "SELECT email, nome, cognome, telefono, password " +
                     "FROM Utente " +
                     "WHERE email = '${filePre.getString("Email", "")}'"
         ClientNetwork.retrofit.select(query).enqueue(
@@ -84,13 +84,15 @@ class ProfiloUtenteActivity : AppCompatActivity() {
                     if (response.isSuccessful){
                         if(response.body() != null){
                             val obj = response.body()?.getAsJsonArray("queryset")
+                            binding.emailTextView.text = obj?.get(0)?.asJsonObject?.get("email")?.asString
                             binding.nomeTextView.text = obj?.get(0)?.asJsonObject?.get("nome")?.asString
                             binding.cognomeTextView.text = obj?.get(0)?.asJsonObject?.get("cognome")?.asString
-                            binding.emailTextView.text = obj?.get(0)?.asJsonObject?.get("email")?.asString
                             binding.telefonoTextView.text = obj?.get(0)?.asJsonObject?.get("telefono")?.asString
                             binding.passwordTextView.text = obj?.get(0)?.asJsonObject?.get("password")?.asString
                         }
                     }
+                    //System.out.println("response" + response)
+                    //System.out.println("response body" + response.body())
                 }
 
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {

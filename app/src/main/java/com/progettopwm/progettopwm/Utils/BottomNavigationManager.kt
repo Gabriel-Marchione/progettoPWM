@@ -7,6 +7,7 @@ import com.example.progettopwm.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.progettopwm.progettopwm.autenticazioneUtente.LoginActivity
 import com.progettopwm.progettopwm.homepage.HomepageActivity
+import com.progettopwm.progettopwm.profiloUtente.ProfiloUtenteActivity
 import com.progettopwm.progettopwm.registrazioneUtente.RegistrazioneUtenteActivity
 
 class BottomNavigationManager(private val context: Context, private val bottomNavigationView: BottomNavigationView) {
@@ -24,7 +25,7 @@ class BottomNavigationManager(private val context: Context, private val bottomNa
                 true
             }
             R.id.profiloMenuItem -> {
-                startActivity(LoginActivity::class.java)
+                startActivity(ProfiloUtenteActivity::class.java)
                 true
             }
             else -> false
