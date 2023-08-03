@@ -62,7 +62,7 @@ class SelezioneAvatarCustomDialog(context: Context) : Dialog(context){
         adapter.setOnClickListener(object : CustomAdapter.OnClickListener {
             override fun onClick(position: Int, model: Int) {
                 val alertDialog = AlertDialog.Builder(context)
-                    .setTitle("Conferma")
+                    .setTitle("Conferma avatar")
                     .setMessage("Vuoi scegliere l'Avatar ${position+1}?")
                     .setPositiveButton("Conferma") { dialog, which ->
 

@@ -10,7 +10,6 @@ import android.view.Window
 import android.widget.Toast
 import com.example.progettopwm.R
 import com.example.progettopwm.databinding.ActivityLoginBinding
-import com.progettopwm.progettopwm.profiloUtente.ProfiloUtenteActivity
 import com.google.gson.JsonObject
 import com.progettopwm.progettopwm.Utils.ClientNetwork
 import com.progettopwm.progettopwm.homepage.HomepageActivity
@@ -30,39 +29,39 @@ class LoginActivity : AppCompatActivity() {
 
         filePre = this.getSharedPreferences("Credenziali", MODE_PRIVATE)
 
-            supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
-            setContentView(binding.root)
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
+        setContentView(binding.root)
 
-            binding.loginButton.setOnClickListener {
-                if (binding.emailPlainText.text.toString().trim().isEmpty() || binding.passwordPlainText.text.toString().trim().isEmpty()
-                ) {
-                    Toast.makeText(this, "Inserisci qualcosa nei campi", Toast.LENGTH_LONG).show()
-                } else {
-                    effettuaQuery()
-                }
+        binding.loginButton.setOnClickListener {
+            if (binding.emailPlainText.text.toString().trim().isEmpty() || binding.passwordPlainText.text.toString().trim().isEmpty()
+            ) {
+                Toast.makeText(this, "Inserisci qualcosa nei campi", Toast.LENGTH_LONG).show()
+            } else {
+                effettuaQuery()
             }
+        }
 
-            binding.registrazioneTextView.setOnClickListener {
-                val intent = Intent(this, RegistrazioneUtenteActivity::class.java)
-                startActivity(intent)
+        binding.registrazioneTextView.setOnClickListener {
+            val intent = Intent(this, RegistrazioneUtenteActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.cancellaTesto.setOnClickListener {
+            binding.emailPlainText.text = null
+        }
+
+        binding.mostraNascondiPassword.setOnClickListener {
+            if(flagOcchioBarrato){ //se l'occhio è barrato allora rendo visibile il testo e cambio immagine
+                binding.mostraNascondiPassword.setImageResource(R.drawable.occhio_aperto)
+                binding.passwordPlainText.transformationMethod = null
+                flagOcchioBarrato = false
+
+            }else{ //altrimenti, se l'occhio non è barrato, lo rendo nascosto e cambio immagine
+                binding.mostraNascondiPassword.setImageResource(R.drawable.occhio_barrato)
+                binding.passwordPlainText.transformationMethod = PasswordTransformationMethod.getInstance()
+                flagOcchioBarrato = true
             }
-
-            binding.cancellaTesto.setOnClickListener {
-                binding.emailPlainText.text = null
-            }
-
-            binding.mostraNascondiPassword.setOnClickListener {
-                if(flagOcchioBarrato){ //se l'occhio è barrato allora rendo visibile il testo e cambio immagine
-                    binding.mostraNascondiPassword.setImageResource(R.drawable.occhio_aperto)
-                    binding.passwordPlainText.transformationMethod = null
-                    flagOcchioBarrato = false
-
-                }else{ //altrimenti, se l'occhio non è barrato, lo rendo nascosto e cambio immagine
-                    binding.mostraNascondiPassword.setImageResource(R.drawable.occhio_barrato)
-                    binding.passwordPlainText.transformationMethod = PasswordTransformationMethod.getInstance()
-                    flagOcchioBarrato = true
-                }
-            }
+        }
 
 
     }

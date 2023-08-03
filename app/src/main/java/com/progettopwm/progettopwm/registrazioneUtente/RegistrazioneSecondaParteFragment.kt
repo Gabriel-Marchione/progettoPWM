@@ -13,11 +13,9 @@ import com.example.progettopwm.databinding.FragmentRegistrazionePrimaParteBindin
 import com.example.progettopwm.databinding.FragmentRegistrazioneSecondaParteBinding
 import com.google.gson.JsonObject
 import com.progettopwm.progettopwm.Utils.ClientNetwork
-import com.progettopwm.progettopwm.profiloUtente.ProfiloUtenteActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.properties.Delegates
 
 class RegistrazioneSecondaParteFragment : Fragment(R.layout.fragment_registrazione_seconda_parte) {
     lateinit var binding : FragmentRegistrazioneSecondaParteBinding

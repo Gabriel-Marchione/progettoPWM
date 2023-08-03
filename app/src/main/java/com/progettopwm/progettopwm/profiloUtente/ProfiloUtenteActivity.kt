@@ -35,6 +35,7 @@ class ProfiloUtenteActivity : AppCompatActivity() {
         navigationManager = BottomNavigationManager(this, bottomNavigationView)
 
         filePre = this.getSharedPreferences("Credenziali", MODE_PRIVATE)
+        System.out.println("filePre" + filePre.all)
         fileAvatar = this.getSharedPreferences("File avatar", MODE_PRIVATE)
 
         //mi prendo l'id dell'immagine che si trova nel file, ovvero quella selezionata nel dialog o scelta nella fase di registrazione
@@ -44,7 +45,7 @@ class ProfiloUtenteActivity : AppCompatActivity() {
         binding.logoutButton.setOnClickListener {
 
             val alertDialog = AlertDialog.Builder(this)
-                .setTitle("Conferma")
+                .setTitle("Conferma logout")
                 .setMessage("Vuoi effettuare il logout? Perderai la preferenza dell'avatar scelto ma potrai sceglierlo nuovamente.")
                 .setPositiveButton("Conferma") { dialog, which ->
                     val editor = filePre.edit()
@@ -77,18 +78,20 @@ class ProfiloUtenteActivity : AppCompatActivity() {
     fun effettuaQuery(){
         val query = "SELECT email, nome, cognome, telefono, password " +
                     "FROM Utente " +
-                    "WHERE email = '${filePre.getString("Email", "")}'"
+                    "WHERE email = '${filePre.getString("Email", "")}' AND password = '${filePre.getString("Password", "")}'"
         ClientNetwork.retrofit.select(query).enqueue(
             object : Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     if (response.isSuccessful){
                         if(response.body() != null){
                             val obj = response.body()?.getAsJsonArray("queryset")
-                            binding.emailTextView.text = obj?.get(0)?.asJsonObject?.get("email")?.asString
-                            binding.nomeTextView.text = obj?.get(0)?.asJsonObject?.get("nome")?.asString
-                            binding.cognomeTextView.text = obj?.get(0)?.asJsonObject?.get("cognome")?.asString
-                            binding.telefonoTextView.text = obj?.get(0)?.asJsonObject?.get("telefono")?.asString
-                            binding.passwordTextView.text = obj?.get(0)?.asJsonObject?.get("password")?.asString
+                            if(obj != null && obj.size() > 0) {
+                                binding.emailTextView.text = obj?.get(0)?.asJsonObject?.get("email")?.asString
+                                binding.nomeTextView.text = obj?.get(0)?.asJsonObject?.get("nome")?.asString
+                                binding.cognomeTextView.text = obj?.get(0)?.asJsonObject?.get("cognome")?.asString
+                                binding.telefonoTextView.text = obj?.get(0)?.asJsonObject?.get("telefono")?.asString
+                                binding.passwordTextView.text = obj?.get(0)?.asJsonObject?.get("password")?.asString
+                            }
                         }
                     }
                     //System.out.println("response" + response)

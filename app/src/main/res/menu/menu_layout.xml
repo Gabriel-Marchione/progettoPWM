@@ -13,9 +13,9 @@
         />
 
     <item
-        android:id="@+id/posizioneMenuItem"
-        android:icon="@drawable/posizionemenu"
-        android:title="Posizione"
+        android:id="@+id/cronologiaMenuItem"
+        android:icon="@drawable/cronologiamenu"
+        android:title="Cronologia acquisti"
         />
 
     <item
