@@ -136,15 +136,15 @@ class HomepageActivity : AppCompatActivity() {
 
     //tramite questo metodo mi recupero l'id dei lettini prenotati, e coloro di rosso il bottone con id recuperato-1
     fun recuperaLettiniPrenotatiAltriUtenti(dataInizioPrenotazione : String){
-        /*val query = "SELECT L.idLettino " +
+        /*val query = "SELECT PL.idPrenotazione, PL.idLettinoPrenotato " +
                 "FROM Utente U, Lettino L, PrenotazioneLettino PL " +
                 "WHERE U.email = PL.emailPrenotante AND L.idLettino = PL.idLettinoPrenotato " +
-                "AND L.flagPrenotazione = 1 AND PL.dataInizioPrenotazione = '${dataInizioPrenotazione}' " +
-                "AND U.email != '${filePre.getString("Email", "")}'"*/
-        val query = "SELECT L.idLettino " +
+                "AND '${dataInizioPrenotazione}' BETWEEN PL.dataInizioPrenotazione AND PL.dataFinePrenotazione " +
+                "AND U.email = '${filePre.getString("Email", "")}'"*/
+        val query = "SELECT PL.idPrenotazione, PL.idLettinoPrenotato " +
                 "FROM Utente U, Lettino L, PrenotazioneLettino PL " +
                 "WHERE U.email = PL.emailPrenotante AND L.idLettino = PL.idLettinoPrenotato " +
-                "AND PL.dataInizioPrenotazione = '${dataInizioPrenotazione}' " +
+                "AND '${dataInizioPrenotazione}' BETWEEN PL.dataInizioPrenotazione AND PL.dataFinePrenotazione " +
                 "AND U.email != '${filePre.getString("Email", "")}'"
         System.out.println(query)
         ClientNetwork.retrofit.select(query).enqueue(
@@ -156,7 +156,7 @@ class HomepageActivity : AppCompatActivity() {
                             if(obj != null && obj.size() > 0){
                                 var idLettino : Int? = 0
                                 for (i in 0 until obj.size()){
-                                    idLettino = obj[i].asJsonObject?.get("idLettino")?.toString()?.trim('"')?.toInt()
+                                    idLettino = obj[i].asJsonObject?.get("idLettinoPrenotato")?.toString()?.trim('"')?.toInt()
                                     listaLettiniPrenotatiAltriUtenti.add(idLettino!!)
                                     val bottone = findViewById<Button>(listaBottoni[idLettino.minus(1)])
                                     bottone.setBackgroundColor(Color.RED)
@@ -187,10 +187,10 @@ class HomepageActivity : AppCompatActivity() {
                 "WHERE U.email = PL.emailPrenotante AND L.idLettino = PL.idLettinoPrenotato " +
                 "AND L.flagPrenotazione = 1 AND PL.dataInizioPrenotazione = '${dataInizioPrenotazione}' " +
                 "AND U.email = '${filePre.getString("Email", "")}'"*/
-        val query = "SELECT L.idLettino " +
+        val query = "SELECT PL.idPrenotazione, PL.idLettinoPrenotato " +
                 "FROM Utente U, Lettino L, PrenotazioneLettino PL " +
                 "WHERE U.email = PL.emailPrenotante AND L.idLettino = PL.idLettinoPrenotato " +
-                "AND PL.dataInizioPrenotazione = '${dataInizioPrenotazione}' " +
+                "AND '${dataInizioPrenotazione}' BETWEEN PL.dataInizioPrenotazione AND PL.dataFinePrenotazione " +
                 "AND U.email = '${filePre.getString("Email", "")}'"
         ClientNetwork.retrofit.select(query).enqueue(
             object : Callback<JsonObject>{
@@ -201,7 +201,7 @@ class HomepageActivity : AppCompatActivity() {
                             if(obj != null){
                                 var idLettino : Int? = 0
                                 for (i in 0 until obj.size()){
-                                    idLettino = obj[i].asJsonObject?.get("idLettino")?.toString()?.trim('"')?.toInt()
+                                    idLettino = obj[i].asJsonObject?.get("idLettinoPrenotato")?.toString()?.trim('"')?.toInt()
                                     listaBottoni[idLettino?.minus(1)!!]
                                     listaLettiniPrenotatiUtenteCorrente.add(idLettino)
                                     findViewById<Button>(listaBottoni[idLettino.minus(1)]).setBackgroundColor(Color.parseColor("#3BB85E"))
