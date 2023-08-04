@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:background="#01A4FF"
                 android:gravity="center"
-                android:text="Prenotazione lettini"
+                android:text="Postazione lettini"
                 android:textAlignment="center"
                 android:textColor="#fff"
                 android:textSize="34sp"
@@ -34,11 +34,47 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+            <Button
+                android:id="@+id/selezionaDataVisualizzazioneLettiniButton"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="2dp"
+                android:gravity="center"
+                android:text="Seleziona data" />
+
+            <TextView
+                android:id="@+id/localDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="2dp"
+                android:gravity="center"
+                android:text="dataOdierna"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="15dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="40dp"
             android:background="@drawable/homepage_background_bottoni"
@@ -47,7 +83,7 @@
             app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,6 +98,7 @@
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="1"
                     app:cornerRadius="100dp" />
 
@@ -71,6 +108,7 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="2"
                     app:cornerRadius="100dp" />
 
@@ -80,6 +118,7 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="3"
                     app:cornerRadius="100dp" />
 
@@ -90,6 +129,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="4"
                     app:cornerRadius="100dp" />
 
@@ -98,6 +138,7 @@
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="5"
                     app:cornerRadius="100dp" />
 
@@ -116,6 +157,7 @@
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="6"
                     app:cornerRadius="100dp" />
 
@@ -125,6 +167,7 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="7"
                     app:cornerRadius="100dp" />
 
@@ -134,6 +177,7 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="8"
                     app:cornerRadius="100dp" />
 
@@ -144,6 +188,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="9"
                     app:cornerRadius="100dp" />
 
@@ -152,6 +197,7 @@
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="10"
                     app:cornerRadius="100dp" />
             </LinearLayout>
@@ -169,6 +215,7 @@
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="11"
                     app:cornerRadius="100dp" />
 
@@ -178,6 +225,7 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="12"
                     app:cornerRadius="100dp" />
 
@@ -187,6 +235,7 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="13"
                     app:cornerRadius="100dp" />
 
@@ -197,6 +246,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="14"
                     app:cornerRadius="100dp" />
 
@@ -205,6 +255,7 @@
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="15"
                     app:cornerRadius="100dp" />
             </LinearLayout>
@@ -222,6 +273,7 @@
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="16"
                     app:cornerRadius="100dp" />
 
@@ -231,6 +283,7 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="17"
                     app:cornerRadius="100dp" />
 
@@ -240,6 +293,7 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="18"
                     app:cornerRadius="100dp" />
 
@@ -250,6 +304,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="19"
                     app:cornerRadius="100dp" />
 
@@ -258,6 +313,7 @@
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="20"
                     app:cornerRadius="100dp" />
             </LinearLayout>
@@ -275,6 +331,7 @@
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="21"
                     app:cornerRadius="100dp" />
 
@@ -284,6 +341,7 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="22"
                     app:cornerRadius="100dp" />
 
@@ -293,6 +351,7 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="23"
                     app:cornerRadius="100dp" />
 
@@ -303,6 +362,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="24"
                     app:cornerRadius="100dp" />
 
@@ -311,6 +371,7 @@
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="25"
                     app:cornerRadius="100dp" />
             </LinearLayout>
@@ -329,6 +390,7 @@
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="26"
                     app:cornerRadius="100dp" />
 
@@ -338,6 +400,7 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="27"
                     app:cornerRadius="100dp" />
 
@@ -347,6 +410,7 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="28"
                     app:cornerRadius="100dp" />
 
@@ -357,6 +421,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="29"
                     app:cornerRadius="100dp" />
 
@@ -365,6 +430,7 @@
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#01A4FF"
                     android:text="30"
                     app:cornerRadius="100dp" />
             </LinearLayout>

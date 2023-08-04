@@ -83,7 +83,7 @@
                 android:id="@+id/registratiButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:backgroundTint="#5EB4F9"
+                android:backgroundTint="#01A4FF"
                 android:text="Registrati"
                 android:textColor="#fff"
                 android:textStyle="bold"
