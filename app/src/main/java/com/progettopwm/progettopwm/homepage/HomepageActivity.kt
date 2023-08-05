@@ -3,7 +3,6 @@ package com.progettopwm.progettopwm.homepage
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
@@ -11,7 +10,6 @@ import android.view.Window
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.progettopwm.R
 import com.example.progettopwm.databinding.ActivityHomepageBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -40,6 +38,8 @@ class HomepageActivity : AppCompatActivity() {
     private var listaLettiniPrenotatiUtenteCorrente : MutableList<Int> = mutableListOf()
 
 
+    //todo implementare custom dialog con informazioni per prenotare lettini per un periodo
+    //todo vedere se la prenotazione si può fare in quel periodo
     //lateinit var fileAvatar : SharedPreferences
 
     val listaBottoni = listOf(
@@ -103,9 +103,8 @@ class HomepageActivity : AppCompatActivity() {
                     Toast.makeText(this, "Non puoi prenotare più di 3 lettini!", Toast.LENGTH_LONG)
                         .show()
                 } else {
-                    System.out.println("ciaooo " + dataDaInserireDB)
-                    prenotaLettino(index + 1, dataDaInserireDB)
-                    System.out.println("lettini miei" + listaLettiniPrenotatiUtenteCorrente)
+                    val dialog = PrenotazioneDialog(this, index+1, dataCorrente, dataCorrenteFormattata, dataDaInserireDB)
+                    dialog.show()
                 }
 
             }
@@ -136,14 +135,10 @@ class HomepageActivity : AppCompatActivity() {
 
     //tramite questo metodo mi recupero l'id dei lettini prenotati, e coloro di rosso il bottone con id recuperato-1
     fun recuperaLettiniPrenotatiAltriUtenti(dataInizioPrenotazione : String){
-        /*val query = "SELECT PL.idPrenotazione, PL.idLettinoPrenotato " +
-                "FROM Utente U, Lettino L, PrenotazioneLettino PL " +
-                "WHERE U.email = PL.emailPrenotante AND L.idLettino = PL.idLettinoPrenotato " +
-                "AND '${dataInizioPrenotazione}' BETWEEN PL.dataInizioPrenotazione AND PL.dataFinePrenotazione " +
-                "AND U.email = '${filePre.getString("Email", "")}'"*/
         val query = "SELECT PL.idPrenotazione, PL.idLettinoPrenotato " +
                 "FROM Utente U, Lettino L, PrenotazioneLettino PL " +
                 "WHERE U.email = PL.emailPrenotante AND L.idLettino = PL.idLettinoPrenotato " +
+                "AND PL.flagPrenotazione = 1 " +
                 "AND '${dataInizioPrenotazione}' BETWEEN PL.dataInizioPrenotazione AND PL.dataFinePrenotazione " +
                 "AND U.email != '${filePre.getString("Email", "")}'"
         System.out.println(query)
@@ -154,16 +149,15 @@ class HomepageActivity : AppCompatActivity() {
                         if(response.body() != null){
                             val obj = response.body()?.getAsJsonArray("queryset")
                             if(obj != null && obj.size() > 0){
-                                var idLettino : Int? = 0
+                                var idLettino : Int?
                                 for (i in 0 until obj.size()){
                                     idLettino = obj[i].asJsonObject?.get("idLettinoPrenotato")?.toString()?.trim('"')?.toInt()
                                     listaLettiniPrenotatiAltriUtenti.add(idLettino!!)
                                     val bottone = findViewById<Button>(listaBottoni[idLettino.minus(1)])
                                     bottone.setBackgroundColor(Color.RED)
                                 }
-
-
                             }
+                            System.out.println("ciao" + listaLettiniPrenotatiAltriUtenti)
                             recuperaLettiniPrenotatiDaUtenteCorrente(dataInizioPrenotazione)
                         }
                     }
@@ -182,14 +176,10 @@ class HomepageActivity : AppCompatActivity() {
     }
 
     fun recuperaLettiniPrenotatiDaUtenteCorrente(dataInizioPrenotazione : String){
-        /*val query = "SELECT L.idLettino " +
-                "FROM Utente U, Lettino L, PrenotazioneLettino PL " +
-                "WHERE U.email = PL.emailPrenotante AND L.idLettino = PL.idLettinoPrenotato " +
-                "AND L.flagPrenotazione = 1 AND PL.dataInizioPrenotazione = '${dataInizioPrenotazione}' " +
-                "AND U.email = '${filePre.getString("Email", "")}'"*/
         val query = "SELECT PL.idPrenotazione, PL.idLettinoPrenotato " +
                 "FROM Utente U, Lettino L, PrenotazioneLettino PL " +
                 "WHERE U.email = PL.emailPrenotante AND L.idLettino = PL.idLettinoPrenotato " +
+                "AND PL.flagPrenotazione = 1 " +
                 "AND '${dataInizioPrenotazione}' BETWEEN PL.dataInizioPrenotazione AND PL.dataFinePrenotazione " +
                 "AND U.email = '${filePre.getString("Email", "")}'"
         ClientNetwork.retrofit.select(query).enqueue(
@@ -199,7 +189,7 @@ class HomepageActivity : AppCompatActivity() {
                         if(response.body() != null){
                             val obj = response.body()?.getAsJsonArray("queryset")
                             if(obj != null){
-                                var idLettino : Int? = 0
+                                var idLettino : Int?
                                 for (i in 0 until obj.size()){
                                     idLettino = obj[i].asJsonObject?.get("idLettinoPrenotato")?.toString()?.trim('"')?.toInt()
                                     listaBottoni[idLettino?.minus(1)!!]
@@ -207,54 +197,8 @@ class HomepageActivity : AppCompatActivity() {
                                     findViewById<Button>(listaBottoni[idLettino.minus(1)]).setBackgroundColor(Color.parseColor("#3BB85E"))
                                 }
                             }
-                            System.out.println("prenotati query" + listaLettiniPrenotatiUtenteCorrente)
                         }
                     }
-                    System.out.println(response)
-                }
-
-                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                    Toast.makeText(
-                        this@HomepageActivity,
-                        "Errore del Database o assenza di connessione",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-
-            }
-        )
-    }
-
-    //da mettere la fine
-    fun prenotaLettino(idLettinoBottone : Int, dataInizioPrenotazione : String){
-        val query = "INSERT INTO PrenotazioneLettino(idLettinoPrenotato, emailPrenotante, dataInizioPrenotazione, dataFinePrenotazione) " +
-                "VALUES ('${idLettinoBottone}', '${filePre.getString("Email", "")}', '${dataInizioPrenotazione}', '${dataInizioPrenotazione}')"
-        System.out.println(query)
-        ClientNetwork.retrofit.insert(query).enqueue(
-            object : Callback<JsonObject>{
-                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                    if(response.isSuccessful){
-                        if(response.body() != null) {
-                            //aggiornaFlagLettino(idLettinoBottone)
-                            Toast.makeText(
-                                this@HomepageActivity,
-                                "Lettino $idLettinoBottone prenotato",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            listaLettiniPrenotatiUtenteCorrente.add(idLettinoBottone)
-                            findViewById<Button>(listaBottoni[idLettinoBottone.minus(1)]).setBackgroundColor(
-                                Color.parseColor("#3BB85E")
-                            )
-                            System.out.println(listaLettiniPrenotatiUtenteCorrente)
-                            /*val intent = Intent(this@HomepageActivity, HomepageActivity::class.java)
-                        intent.putExtra("dataDaInserireDB", dataInizioPrenotazione)
-                        startActivity(intent)*/
-                        }
-                    }else{
-                        Toast.makeText(this@HomepageActivity, "Si è verificato un problema con il server, riprova", Toast.LENGTH_LONG).show()
-                    }
-                    System.out.println(response)
-                    System.out.println(response.body())
                 }
 
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -289,10 +233,6 @@ class HomepageActivity : AppCompatActivity() {
         )
     }*/
 
-    /*TODO convertire in un dialogo personalizzato, così da scegliere la fine del periodo
-    TODO impostare il prezzo (giornaliero) nella tabella dei lettini in mysql
-
-    */
     fun mostraDialog(){
         val dialog = AlertDialog.Builder(this)
             .setTitle("Annulla prenotazione")
