@@ -43,6 +43,9 @@
         <activity
             android:name="com.progettopwm.progettopwm.registrazioneUtente.RegistrazioneCompletataActivity">
         </activity>
+
+        <activity android:name="com.progettopwm.progettopwm.acquistoConsumazioni.AcquistoConsumazioniActivity">
+        </activity>
     </application>
 
 </manifest>

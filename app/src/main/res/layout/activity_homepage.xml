@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/homepagebackround"
+    android:background="#006CA8"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,10 +35,13 @@
 
         <LinearLayout
             android:id="@+id/linearLayout4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/homepage_background_bottoni"
             android:gravity="center"
             android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
@@ -48,11 +51,10 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="2dp"
                 android:gravity="center"
-                android:text="Seleziona data" />
+                android:text="Seleziona data"
+                app:cornerRadius="50dp" />
 
             <TextView
                 android:id="@+id/localDateTextView"
@@ -60,11 +62,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="2dp"
                 android:gravity="center"
                 android:text="dataOdierna"
-                android:textColor="#fff"
+                android:textColor="#373737"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="25dp"
             android:background="@drawable/homepage_background_bottoni"
             android:gravity="center"
             android:orientation="vertical"
@@ -441,7 +441,6 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/login_riquadro_campi_border"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/bottomNavigationBar"
             app:layout_constraintEnd_toEndOf="parent"
@@ -455,7 +454,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Aiuto?"
-                app:cornerRadius="100dp" />
+                app:cornerRadius="50dp" />
         </LinearLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView

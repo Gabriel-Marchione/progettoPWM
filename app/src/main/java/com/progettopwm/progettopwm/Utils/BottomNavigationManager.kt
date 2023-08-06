@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.MenuItem
 import com.example.progettopwm.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.progettopwm.progettopwm.acquistoConsumazioni.AcquistoConsumazioniActivity
 import com.progettopwm.progettopwm.homepage.HomepageActivity
 import com.progettopwm.progettopwm.profiloUtente.ProfiloUtenteActivity
 
@@ -20,6 +21,10 @@ class BottomNavigationManager(private val context: Context, private val bottomNa
         return when (item.itemId) {
             R.id.homepageMenuItem -> {
                 startActivity(HomepageActivity::class.java)
+                true
+            }
+            R.id.consumazioniMenuItem -> {
+                startActivity(AcquistoConsumazioniActivity::class.java)
                 true
             }
             R.id.profiloMenuItem -> {

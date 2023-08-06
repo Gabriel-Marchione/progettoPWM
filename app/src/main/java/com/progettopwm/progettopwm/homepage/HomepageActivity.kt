@@ -38,10 +38,6 @@ class HomepageActivity : AppCompatActivity() {
     private var listaLettiniPrenotatiUtenteCorrente : MutableList<Int> = mutableListOf()
 
 
-    //todo implementare custom dialog con informazioni per prenotare lettini per un periodo
-    //todo vedere se la prenotazione si può fare in quel periodo
-    //lateinit var fileAvatar : SharedPreferences
-
     val listaBottoni = listOf(
         R.id.lettino1, R.id.lettino2, R.id.lettino3, R.id.lettino4, R.id.lettino5,
         R.id.lettino6, R.id.lettino7, R.id.lettino8, R.id.lettino9, R.id.lettino10,
@@ -65,11 +61,8 @@ class HomepageActivity : AppCompatActivity() {
 
         filePre = this.getSharedPreferences("Credenziali", MODE_PRIVATE)
 
-
-        System.out.println(dataCorrente + " " + dataCorrenteFormattata)
         binding.localDateTextView.setText(dataCorrenteFormattata)
         dataDaInserireDB = dataCorrente
-        System.out.println(dataDaInserireDB)
 
         val calendar = Calendar.getInstance()
 
