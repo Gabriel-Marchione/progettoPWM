@@ -1,4 +1,4 @@
-package com.progettopwm.progettopwm.Utils
+package com.progettopwm.progettopwm.utils
 
 import android.content.Context
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.view.MenuItem
 import com.example.progettopwm.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.progettopwm.progettopwm.acquistoConsumazioni.AcquistoConsumazioniActivity
+import com.progettopwm.progettopwm.cronologiaAcquistiConsumazioni.CronologiaPrenotazioniAcquistiActivity
 import com.progettopwm.progettopwm.homepage.HomepageActivity
 import com.progettopwm.progettopwm.profiloUtente.ProfiloUtenteActivity
 
@@ -25,6 +26,10 @@ class BottomNavigationManager(private val context: Context, private val bottomNa
             }
             R.id.consumazioniMenuItem -> {
                 startActivity(AcquistoConsumazioniActivity::class.java)
+                true
+            }
+            R.id.cronologiaMenuItem -> {
+                startActivity(CronologiaPrenotazioniAcquistiActivity::class.java)
                 true
             }
             R.id.profiloMenuItem -> {

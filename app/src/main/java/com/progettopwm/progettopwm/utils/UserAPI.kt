@@ -1,4 +1,4 @@
-package com.progettopwm.progettopwm.Utils
+package com.progettopwm.progettopwm.utils
 
 import okhttp3.ResponseBody
 import retrofit2.Call

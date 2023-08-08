@@ -1,13 +1,9 @@
 package com.progettopwm.progettopwm.acquistoConsumazioni
 
 import android.content.SharedPreferences
-import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
 import android.view.Window
-import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.progettopwm.R
@@ -15,9 +11,8 @@ import com.example.progettopwm.databinding.AcquistoConsumazioniCardViewBinding
 import com.example.progettopwm.databinding.ActivityAcquistoConsumazioniBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.JsonObject
-import com.progettopwm.progettopwm.Utils.BottomNavigationManager
-import com.progettopwm.progettopwm.Utils.ClientNetwork
-import com.progettopwm.progettopwm.profiloUtente.CustomAdapter
+import com.progettopwm.progettopwm.utils.BottomNavigationManager
+import com.progettopwm.progettopwm.utils.ClientNetwork
 import retrofit2.Response
 import retrofit2.Call
 import retrofit2.Callback

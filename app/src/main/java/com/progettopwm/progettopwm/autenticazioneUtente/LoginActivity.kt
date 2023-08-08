@@ -11,7 +11,7 @@ import android.widget.Toast
 import com.example.progettopwm.R
 import com.example.progettopwm.databinding.ActivityLoginBinding
 import com.google.gson.JsonObject
-import com.progettopwm.progettopwm.Utils.ClientNetwork
+import com.progettopwm.progettopwm.utils.ClientNetwork
 import com.progettopwm.progettopwm.homepage.HomepageActivity
 import com.progettopwm.progettopwm.registrazioneUtente.RegistrazioneUtenteActivity
 import retrofit2.Call

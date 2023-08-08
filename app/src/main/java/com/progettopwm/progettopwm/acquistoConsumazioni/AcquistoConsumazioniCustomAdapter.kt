@@ -7,7 +7,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.progettopwm.R
 import com.example.progettopwm.databinding.AcquistoConsumazioniCardViewBinding
-import com.progettopwm.progettopwm.Utils.ClientNetwork
+import com.progettopwm.progettopwm.utils.ClientNetwork
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response

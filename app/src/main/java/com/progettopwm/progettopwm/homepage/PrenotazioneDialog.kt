@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
 import com.example.progettopwm.databinding.PrenotazioneLettinoCustomDialogBinding
 import com.google.gson.JsonObject
-import com.progettopwm.progettopwm.Utils.ClientNetwork
+import com.progettopwm.progettopwm.utils.ClientNetwork
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

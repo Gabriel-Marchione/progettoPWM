@@ -46,6 +46,10 @@
 
         <activity android:name="com.progettopwm.progettopwm.acquistoConsumazioni.AcquistoConsumazioniActivity">
         </activity>
+
+        <activity android:name="com.progettopwm.progettopwm.cronologiaAcquistiConsumazioni.CronologiaPrenotazioniAcquistiActivity">
+        </activity>
+
     </application>
 
 </manifest>

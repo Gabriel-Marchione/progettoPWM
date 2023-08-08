@@ -12,7 +12,7 @@ import com.example.progettopwm.R
 import com.example.progettopwm.databinding.FragmentRegistrazionePrimaParteBinding
 import com.example.progettopwm.databinding.FragmentRegistrazioneSecondaParteBinding
 import com.google.gson.JsonObject
-import com.progettopwm.progettopwm.Utils.ClientNetwork
+import com.progettopwm.progettopwm.utils.ClientNetwork
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

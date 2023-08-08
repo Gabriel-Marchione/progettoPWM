@@ -8,10 +8,10 @@ import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.progettopwm.R
-import com.progettopwm.progettopwm.Utils.ClientNetwork
+import com.progettopwm.progettopwm.utils.ClientNetwork
 import com.example.progettopwm.databinding.ActivityVisualizzazioneProfiloBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.progettopwm.progettopwm.Utils.BottomNavigationManager
+import com.progettopwm.progettopwm.utils.BottomNavigationManager
 import com.google.gson.JsonObject
 import com.progettopwm.progettopwm.BenvenutoActivity
 import retrofit2.Call
