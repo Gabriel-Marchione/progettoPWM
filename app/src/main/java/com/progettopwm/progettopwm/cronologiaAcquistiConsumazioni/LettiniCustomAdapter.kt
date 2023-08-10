@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.progettopwm.databinding.CronologiaLettiniCardViewBinding
 
-class CronologiaAcquistiConsumazioniCustomAdapter(private val mList: List<ItemsViewModelCronologiaAcquistiConsumazioni>) : RecyclerView.Adapter<CronologiaAcquistiConsumazioniCustomAdapter.ViewHolder>(){
+class LettiniCustomAdapter(private val mList: List<LettiniItemsViewModel>) : RecyclerView.Adapter<LettiniCustomAdapter.ViewHolder>(){
     private var onClickListener: OnClickListener? = null
 
     class ViewHolder(binding : CronologiaLettiniCardViewBinding) : RecyclerView.ViewHolder(binding.root){
@@ -42,7 +42,7 @@ class CronologiaAcquistiConsumazioniCustomAdapter(private val mList: List<ItemsV
     }
 
     interface OnClickListener{
-        fun onClick(position: Int, model: ItemsViewModelCronologiaAcquistiConsumazioni)
+        fun onClick(position: Int, model: LettiniItemsViewModel)
     }
 
     fun setOnClickListener(onClickListener: OnClickListener) {

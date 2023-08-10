@@ -11,27 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="#01A4FF"
-            android:gravity="center"
-            android:text="Cronologia acquisti"
-            android:textAlignment="center"
-            android:textColor="#fff"
-            android:textSize="34sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <LinearLayout
-            android:id="@+id/lettiniLinearLayout"
+            android:id="@+id/lettiniPrenotatiLinearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/cronologiaLettiniPrenotatiLinearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,26 +34,117 @@
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/cronologiaLettiniRecyclerView"
+                android:id="@+id/lettiniPrenotatiRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible" />
+                android:visibility="visible">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/noLettiniPrenotatiTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:text="Nessun lettino attualmente prenotato!"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textSize="17sp"
+                android:textStyle="bold|italic"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/nascondiMostraLettiniButton"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="Nascondi lettini prenotati"
+                android:textStyle="bold"
+                app:cornerRadius="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lettiniPrenotatiLinearLayout" />
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/nascondiMostraCronologiaLettiniButton"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="Nascondi lettini prenotati"
-            android:textStyle="bold"
-            app:cornerRadius="30dp"
+        <LinearLayout
+            android:id="@+id/cronologiaLettiniPrenotatiLinearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginBottom="72dp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/consumazioniLinearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lettiniLinearLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/lettiniPrenotatiLinearLayout">
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Lettini prenotati in passato"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/cronologiaLettiniPrenotatiRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/noLettiniPrenotatiCronologiaTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Nessun lettino prenotato in passato!"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textSize="17sp"
+                android:textStyle="bold|italic"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/nascondiMostraCronologiaLettiniPrenotatiButton"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="Mostra lettini prenotati in passato"
+                android:textStyle="bold"
+                app:cornerRadius="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/consumazioniLinearLayout" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#01A4FF"
+            android:gravity="center"
+            android:text="Cronologia acquisti"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/consumazioniLinearLayout"
@@ -75,17 +152,18 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationBar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nascondiMostraCronologiaLettiniButton">
+            app:layout_constraintTop_toBottomOf="@+id/cronologiaLettiniPrenotatiLinearLayout">
 
             <TextView
                 android:id="@+id/consumazioniTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Consumazioni"
+                android:text="Consumazioni effettuate"
                 android:textColor="#fff"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -94,21 +172,35 @@
                 android:id="@+id/cronologiaConsumazioniRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" />
+                android:orientation="horizontal"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/noConsumazioniCronologiaTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Nessuna consumazione acquistata in passato!"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textSize="17sp"
+                android:textStyle="bold|italic"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/nascondiMostraCronologiaConsumazioniButton"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="Mostra cronologia consumazioni"
+                android:textStyle="bold"
+                app:cornerRadius="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/consumazioniLinearLayout" />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/nascondiMostraCronologiaConsumazioniButton"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="5dp"
-            android:text="Mostra cronologia consumazioni"
-            android:textStyle="bold"
-            app:cornerRadius="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/consumazioniLinearLayout" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationBar"

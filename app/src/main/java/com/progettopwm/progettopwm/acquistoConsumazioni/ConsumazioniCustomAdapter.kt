@@ -12,7 +12,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 
-class AcquistoConsumazioniCustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adapter<AcquistoConsumazioniCustomAdapter.ViewHolder>(){
+class ConsumazioniCustomAdapter(private val mList: List<ConsumazioniItemsViewModel>) : RecyclerView.Adapter<ConsumazioniCustomAdapter.ViewHolder>(){
     private var onClickListener: OnClickListener? = null
 
     class ViewHolder(binding : AcquistoConsumazioniCardViewBinding) : RecyclerView.ViewHolder(binding.root){
@@ -50,7 +50,7 @@ class AcquistoConsumazioniCustomAdapter(private val mList: List<ItemsViewModel>)
     }
 
     interface OnClickListener{
-        fun onClick(position: Int, model: ItemsViewModel)
+        fun onClick(position: Int, model: ConsumazioniItemsViewModel)
     }
 
     fun setOnClickListener(onClickListener: OnClickListener) {

@@ -23,8 +23,8 @@ class AcquistoConsumazioniActivity : AppCompatActivity() {
     lateinit var binding2 : AcquistoConsumazioniCardViewBinding
     lateinit var navigationManager: BottomNavigationManager
     lateinit var filePre : SharedPreferences
-    lateinit var adapterBevande: AcquistoConsumazioniCustomAdapter
-    lateinit var adapterCibo: AcquistoConsumazioniCustomAdapter
+    lateinit var adapterBevande: ConsumazioniCustomAdapter
+    lateinit var adapterCibo: ConsumazioniCustomAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +47,8 @@ class AcquistoConsumazioniActivity : AppCompatActivity() {
 
     fun restituisciConsumazioni(){
         val query = "SELECT idProdottoAlimentare, denominazione, flagCibo, ingredienti, prezzo, imgProdotto FROM ProdottoAlimentare"
-        val dataBevande = ArrayList<ItemsViewModel>()
-        val dataCibo = ArrayList<ItemsViewModel>()
+        val dataBevande = ArrayList<ConsumazioniItemsViewModel>()
+        val dataCibo = ArrayList<ConsumazioniItemsViewModel>()
         ClientNetwork.retrofit.select(query).enqueue(
             object : Callback<JsonObject>{
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -65,26 +65,26 @@ class AcquistoConsumazioniActivity : AppCompatActivity() {
                                     val immagine = obj[i].asJsonObject?.get("imgProdotto")?.asString?.trim('"')
                                     System.out.println(immagine)
                                     if (flagCibo == 1) {
-                                        dataCibo.add(ItemsViewModel(idProdotto, denominazione, prezzo, ingredienti, immagine))
+                                        dataCibo.add(ConsumazioniItemsViewModel(idProdotto, denominazione, prezzo, ingredienti, immagine))
                                     } else {
-                                        dataBevande.add(ItemsViewModel(idProdotto, denominazione, prezzo, ingredienti, immagine))
+                                        dataBevande.add(ConsumazioniItemsViewModel(idProdotto, denominazione, prezzo, ingredienti, immagine))
                                     }
                                 }
-                                adapterBevande = AcquistoConsumazioniCustomAdapter(dataBevande)
+                                adapterBevande = ConsumazioniCustomAdapter(dataBevande)
                                 binding.bevandeRecyclerView.adapter = adapterBevande
 
-                                adapterBevande.setOnClickListener(object : AcquistoConsumazioniCustomAdapter.OnClickListener{
-                                    override fun onClick(position: Int, model: ItemsViewModel) {
+                                adapterBevande.setOnClickListener(object : ConsumazioniCustomAdapter.OnClickListener{
+                                    override fun onClick(position: Int, model: ConsumazioniItemsViewModel) {
                                         mostraDialogoConfermaAcquisto(model.denominazione, model.idProdotto)
                                     }
 
                                 })
 
-                                adapterCibo = AcquistoConsumazioniCustomAdapter(dataCibo)
+                                adapterCibo = ConsumazioniCustomAdapter(dataCibo)
                                 binding.ciboRecyclerView.adapter = adapterCibo
 
-                                adapterCibo.setOnClickListener(object : AcquistoConsumazioniCustomAdapter.OnClickListener{
-                                    override fun onClick(position: Int, model: ItemsViewModel) {
+                                adapterCibo.setOnClickListener(object : ConsumazioniCustomAdapter.OnClickListener{
+                                    override fun onClick(position: Int, model: ConsumazioniItemsViewModel) {
                                         mostraDialogoConfermaAcquisto(model.denominazione, model.idProdotto)
                                     }
 
