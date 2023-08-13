@@ -25,6 +25,13 @@ class ProfiloUtenteActivity : AppCompatActivity() {
     lateinit var navigationManager: BottomNavigationManager
     lateinit var filePre : SharedPreferences
     lateinit var fileAvatar : SharedPreferences
+
+    //todo controlli date di nascita per comprare alcolici e per registrarsi
+    //todo sistemare campi di profilo
+    //todo aggiungere prezzo nella conferma dell'acquisto
+    //todo aggiungere controllo per non prenotare lettini delle giornate passate
+    //todo nasconderre recycler view cibo
+    //todo arrotondare immagini delle recycler view?
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         binding = ActivityVisualizzazioneProfiloBinding.inflate(layoutInflater)

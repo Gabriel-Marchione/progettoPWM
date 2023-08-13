@@ -52,6 +52,7 @@ class CronologiaPrenotazioniAcquistiActivity : AppCompatActivity() {
         binding.cronologiaLettiniPrenotatiRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.cronologiaConsumazioniRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
+
         recuperaLettiniNoleggiatiPresente()
         recuperaLettiniNoleggiatiInPassato()
         recuperaCronologiaAcquistiConsumazioni()
