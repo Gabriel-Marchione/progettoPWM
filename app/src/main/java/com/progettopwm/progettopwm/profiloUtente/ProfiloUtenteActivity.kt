@@ -77,7 +77,12 @@ class ProfiloUtenteActivity : AppCompatActivity() {
 
         binding.modificaDatiButton.setOnClickListener {
             val dialog = ModificaDatiCustomDialog(this, filePre.getString("Email", "")?.toString()?.trim(), binding.nomeTextView.text.toString(), binding.cognomeTextView.text.toString(),
-                    binding.dataNascitaTextView.text.toString(), binding.telefonoTextView.text.toString(), binding.cartaCreditoTextView.text.toString(), binding.passwordTextView.text.toString())
+                    binding.dataNascitaTextView.text.toString(), binding.telefonoTextView.text.toString(), binding.cartaCreditoTextView.text.toString())
+            dialog.show()
+        }
+
+        binding.modificaPasswordButton.setOnClickListener {
+            val dialog = ModificaPasswordCustomDialog(this, filePre.getString("Email", "")?.toString()?.trim(), binding.passwordTextView.text.toString())
             dialog.show()
         }
 

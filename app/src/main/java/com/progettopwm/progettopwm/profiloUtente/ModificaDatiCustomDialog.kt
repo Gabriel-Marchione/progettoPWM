@@ -20,7 +20,7 @@ import java.time.LocalDate
 import java.util.*
 
 class ModificaDatiCustomDialog(context: Context, emailActivity : String?, nomeActivity : String, cognomeActivity : String, dataNascitaActivity : String,
-                               telefonoActivity : String, cartaCreditoActivity : String, passwordActivity : String) : Dialog(context) {
+                               telefonoActivity : String, cartaCreditoActivity : String) : Dialog(context) {
 
     lateinit var binding : CustomDialogModificaDatiBinding
     lateinit var filePre : SharedPreferences
@@ -31,22 +31,24 @@ class ModificaDatiCustomDialog(context: Context, emailActivity : String?, nomeAc
     val dataNascita = dataNascitaActivity
     val telefono = telefonoActivity
     val cartaCredito = cartaCreditoActivity
-    val password = passwordActivity
 
+    //todo sistemare la sessione
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = CustomDialogModificaDatiBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         filePre = context.getSharedPreferences("Credenziali", AppCompatActivity.MODE_PRIVATE)
-
+        System.out.println("custom dialog" + filePre.all)
         binding.emailModificaProfiloPlainText.setText(email)
         binding.nomeModificaProfiloPlainText.setText(nome)
         binding.cognomeModificaProfiloPlainText.setText(cognome)
         binding.dataNascitaModificaPlainText.setText(dataNascita)
         binding.telefonoModificaProfiloPlainText.setText(telefono)
         binding.cartaCreditoModificaProfiloPlainText.setText(cartaCredito)
-        binding.passwordModificaProfiloPlainText.setText(password)
+
+        binding.dataNascitaModificaPlainText.isClickable = false
+        binding.dataNascitaModificaPlainText.isFocusable = false
 
         val calendar = Calendar.getInstance()
 
@@ -65,8 +67,10 @@ class ModificaDatiCustomDialog(context: Context, emailActivity : String?, nomeAc
         dataDaInserireDB = parseData(binding.dataNascitaModificaPlainText.text.toString())
 
         binding.confermaModificaButton.setOnClickListener {
-            aggiornaDatiProfilo()
-            dismiss()
+            if(checkCampi()) {
+                aggiornaDatiProfilo()
+                dismiss()
+            }
         }
 
         binding.annullaButton.setOnClickListener {
@@ -101,8 +105,7 @@ class ModificaDatiCustomDialog(context: Context, emailActivity : String?, nomeAc
                 "cognome = '${binding.cognomeModificaProfiloPlainText.text.toString().trim()}', " +
                 "dataNascita = '${dataDaInserireDB}', " +
                 "telefono = '${binding.telefonoModificaProfiloPlainText.text.toString().trim()}', " +
-                "cartaCredito = '${binding.cartaCreditoModificaProfiloPlainText.text.toString().trim()}', " +
-                "password = '${binding.passwordModificaProfiloPlainText.text.toString().trim()}' " +
+                "cartaCredito = '${binding.cartaCreditoModificaProfiloPlainText.text.toString().trim()}' " +
                 "WHERE email = '${filePre.getString("Email", "")}'"
         ClientNetwork.retrofit.update(query).enqueue(
             object : Callback<JsonObject>{
@@ -110,8 +113,8 @@ class ModificaDatiCustomDialog(context: Context, emailActivity : String?, nomeAc
                     if(response.isSuccessful){
                         val editor = filePre.edit()
                         editor.putString("Email", binding.emailModificaProfiloPlainText.text.toString().trim())
-                        editor.putString("Password", binding.passwordModificaProfiloPlainText.text.toString().trim())
                         editor.apply()
+                        Toast.makeText(context, "Dati aggiornati correttamente", Toast.LENGTH_LONG).show()
                         val intent = Intent(context, ProfiloUtenteActivity::class.java)
                         startActivity(context, intent, null)
                     }
@@ -128,5 +131,31 @@ class ModificaDatiCustomDialog(context: Context, emailActivity : String?, nomeAc
 
             }
         )
+    }
+
+    private fun checkCampi() : Boolean{
+        val patterNomeCognomeEmail = Regex("^[0-9]+")
+        var check = false
+
+        if(
+            binding.emailModificaProfiloPlainText.text.trim().isNotEmpty() && binding.nomeModificaProfiloPlainText.text.trim().isNotEmpty()
+            && binding.cognomeModificaProfiloPlainText.text.trim().isNotEmpty() && binding.dataNascitaModificaPlainText.text.trim().isNotEmpty()
+            && binding.telefonoModificaProfiloPlainText.text.trim().isNotEmpty() && binding.cartaCreditoModificaProfiloPlainText.text.trim().isNotEmpty()
+        ){
+            check = true
+            if(binding.emailModificaProfiloPlainText.text.matches(patterNomeCognomeEmail)){
+                check = false
+                Toast.makeText(context, "Inserire una email valida", Toast.LENGTH_LONG).show()
+            }else if(binding.nomeModificaProfiloPlainText.text.matches(patterNomeCognomeEmail)){
+                check = false
+                Toast.makeText(context, "Inserire un nome valido", Toast.LENGTH_LONG).show()
+            }
+            else if(binding.cognomeModificaProfiloPlainText.text.matches(patterNomeCognomeEmail)){
+                check = false
+                Toast.makeText(context, "Inserire un cognome valido", Toast.LENGTH_LONG).show()
+            }
+        }else
+            Toast.makeText(context, "I campi sono vuoti", Toast.LENGTH_LONG).show()
+        return check
     }
 }

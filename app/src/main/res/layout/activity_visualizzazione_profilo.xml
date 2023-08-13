@@ -13,12 +13,14 @@
 
         <LinearLayout
             android:id="@+id/linearLayout12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="280dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
             android:background="#01A4FF"
             android:gravity="center"
             android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout13"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -65,7 +67,7 @@
             android:id="@+id/linearLayout13"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-30dp"
+            android:layout_marginTop="-55dp"
             android:background="@drawable/simple_border_grey"
             android:gravity="center"
             android:orientation="horizontal"
@@ -104,7 +106,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="2dp"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/bottomNavigationBar"
@@ -259,11 +261,22 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/modificaPasswordButton"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="Modifica password"
+                android:textColor="#fff"
+                android:textStyle="normal"
+                app:cornerRadius="20dp" />
+
+            <Button
                 android:id="@+id/logoutButton"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/logout_button_background"
                 android:text="Logout"
                 android:textStyle="bold" />
