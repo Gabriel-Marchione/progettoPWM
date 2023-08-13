@@ -1,0 +1,132 @@
+package com.progettopwm.progettopwm.profiloUtente
+
+import android.app.DatePickerDialog
+import android.app.Dialog
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
+import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
+import com.example.progettopwm.databinding.CustomDialogModificaDatiBinding
+import com.google.gson.JsonObject
+import com.progettopwm.progettopwm.utils.ClientNetwork
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.*
+
+class ModificaDatiCustomDialog(context: Context, emailActivity : String?, nomeActivity : String, cognomeActivity : String, dataNascitaActivity : String,
+                               telefonoActivity : String, cartaCreditoActivity : String, passwordActivity : String) : Dialog(context) {
+
+    lateinit var binding : CustomDialogModificaDatiBinding
+    lateinit var filePre : SharedPreferences
+    lateinit var dataDaInserireDB : String
+    val email = emailActivity
+    val nome = nomeActivity
+    val cognome = cognomeActivity
+    val dataNascita = dataNascitaActivity
+    val telefono = telefonoActivity
+    val cartaCredito = cartaCreditoActivity
+    val password = passwordActivity
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = CustomDialogModificaDatiBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        filePre = context.getSharedPreferences("Credenziali", AppCompatActivity.MODE_PRIVATE)
+
+        binding.emailModificaProfiloPlainText.setText(email)
+        binding.nomeModificaProfiloPlainText.setText(nome)
+        binding.cognomeModificaProfiloPlainText.setText(cognome)
+        binding.dataNascitaModificaPlainText.setText(dataNascita)
+        binding.telefonoModificaProfiloPlainText.setText(telefono)
+        binding.cartaCreditoModificaProfiloPlainText.setText(cartaCredito)
+        binding.passwordModificaProfiloPlainText.setText(password)
+
+        val calendar = Calendar.getInstance()
+
+        // creiamo l'oggetto datepicker e inizializziamo un listener
+        val datePicker = DatePickerDialog.OnDateSetListener{ view, year, month, dayOfMonth ->
+            calendar.set(Calendar.YEAR, year)
+            calendar.set(Calendar.MONTH, month)
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            updateLable(calendar)
+        }
+        binding.selezionaDataNascitaModifica.setOnClickListener {
+            DatePickerDialog(context, datePicker, calendar.get(Calendar.YEAR), calendar.get(
+                Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
+        }
+
+        dataDaInserireDB = parseData(binding.dataNascitaModificaPlainText.text.toString())
+
+        binding.confermaModificaButton.setOnClickListener {
+            aggiornaDatiProfilo()
+            dismiss()
+        }
+
+        binding.annullaButton.setOnClickListener {
+            dismiss()
+        }
+    }
+
+    private fun updateLable(calendar: Calendar) {
+        val format = "dd-MM-yyyy"
+        val sdf = SimpleDateFormat(format, Locale.getDefault())
+        val formattedDate = sdf.format(calendar.time)
+        binding.dataNascitaModificaPlainText.setText(formattedDate)
+
+        val format2 = "yyyy-MM-dd"
+        val sdf2 = SimpleDateFormat(format2, Locale.getDefault())
+        dataDaInserireDB = sdf2.format(calendar.time)
+        System.out.println(dataDaInserireDB)
+    }
+
+    private fun parseData(dataDaFormattare : String) : String{
+        val sdfInput = android.icu.text.SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val sdfOutput = android.icu.text.SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val formattedDataNascita = sdfOutput.format(sdfInput.parse(dataDaFormattare))
+
+        return formattedDataNascita
+    }
+
+    fun aggiornaDatiProfilo(){
+        val query = "UPDATE Utente " +
+                "SET email = '${binding.emailModificaProfiloPlainText.text.toString().trim()}', " +
+                "nome = '${binding.nomeModificaProfiloPlainText.text.toString().trim()}', " +
+                "cognome = '${binding.cognomeModificaProfiloPlainText.text.toString().trim()}', " +
+                "dataNascita = '${dataDaInserireDB}', " +
+                "telefono = '${binding.telefonoModificaProfiloPlainText.text.toString().trim()}', " +
+                "cartaCredito = '${binding.cartaCreditoModificaProfiloPlainText.text.toString().trim()}', " +
+                "password = '${binding.passwordModificaProfiloPlainText.text.toString().trim()}' " +
+                "WHERE email = '${filePre.getString("Email", "")}'"
+        ClientNetwork.retrofit.update(query).enqueue(
+            object : Callback<JsonObject>{
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    if(response.isSuccessful){
+                        val editor = filePre.edit()
+                        editor.putString("Email", binding.emailModificaProfiloPlainText.text.toString().trim())
+                        editor.putString("Password", binding.passwordModificaProfiloPlainText.text.toString().trim())
+                        editor.apply()
+                        val intent = Intent(context, ProfiloUtenteActivity::class.java)
+                        startActivity(context, intent, null)
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    Toast.makeText(
+                        context,
+                        "Errore del Database o assenza di connessione",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    System.out.println(t.message)
+                }
+
+            }
+        )
+    }
+}

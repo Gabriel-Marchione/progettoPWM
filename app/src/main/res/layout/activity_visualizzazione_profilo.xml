@@ -42,7 +42,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="60dp"
-                    android:text="Connessione"
+                    android:text="Nome"
                     android:textColor="#ffffff"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="60dp"
-                    android:text="Assente"
+                    android:text="Cognome"
                     android:textColor="#ffffff"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -65,7 +65,7 @@
             android:id="@+id/linearLayout13"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-25dp"
+            android:layout_marginTop="-30dp"
             android:background="@drawable/simple_border_grey"
             android:gravity="center"
             android:orientation="horizontal"
@@ -87,7 +87,7 @@
                 app:cornerRadius="20dp" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/modificaDatiButton"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -104,7 +104,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/bottomNavigationBar"
@@ -148,6 +148,35 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/imageView13"
+                    android:layout_width="40dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/calendario" />
+
+                <TextView
+                    android:id="@+id/dataNascitaTextView"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="dataNascita"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
                     android:id="@+id/imageView11"
                     android:layout_width="40dp"
                     android:layout_height="25dp"
@@ -177,24 +206,24 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imageView13"
+                    android:id="@+id/imageView16"
                     android:layout_width="40dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/posizione" />
+                    app:srcCompat="@drawable/cartacredito" />
 
                 <TextView
-                    android:id="@+id/posizioneTextView"
+                    android:id="@+id/cartaCreditoTextView"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:gravity="left"
-                    android:text="posizione"
+                    android:text="cartaCredito"
                     android:textColor="#000000"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -234,7 +263,7 @@
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/logout_button_background"
                 android:text="Logout"
                 android:textStyle="bold" />

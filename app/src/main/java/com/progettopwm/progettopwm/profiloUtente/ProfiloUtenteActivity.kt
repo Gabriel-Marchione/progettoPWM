@@ -3,6 +3,7 @@ package com.progettopwm.progettopwm.profiloUtente
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.SharedPreferences
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.view.Window
 import android.widget.Toast
@@ -17,6 +18,7 @@ import com.progettopwm.progettopwm.BenvenutoActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class ProfiloUtenteActivity : AppCompatActivity() {
     lateinit var binding : ActivityVisualizzazioneProfiloBinding
@@ -73,10 +75,16 @@ class ProfiloUtenteActivity : AppCompatActivity() {
             dialog.show()
         }
 
+        binding.modificaDatiButton.setOnClickListener {
+            val dialog = ModificaDatiCustomDialog(this, filePre.getString("Email", "")?.toString()?.trim(), binding.nomeTextView.text.toString(), binding.cognomeTextView.text.toString(),
+                    binding.dataNascitaTextView.text.toString(), binding.telefonoTextView.text.toString(), binding.cartaCreditoTextView.text.toString(), binding.passwordTextView.text.toString())
+            dialog.show()
+        }
+
     }
 
     fun effettuaQuery(){
-        val query = "SELECT email, nome, cognome, telefono, password " +
+        val query = "SELECT email, nome, cognome, dataNascita, telefono, cartaCredito, password " +
                     "FROM Utente " +
                     "WHERE email = '${filePre.getString("Email", "")}' AND password = '${filePre.getString("Password", "")}'"
         ClientNetwork.retrofit.select(query).enqueue(
@@ -85,17 +93,23 @@ class ProfiloUtenteActivity : AppCompatActivity() {
                     if (response.isSuccessful){
                         if(response.body() != null){
                             val obj = response.body()?.getAsJsonArray("queryset")
+                            System.out.println(obj)
                             if(obj != null && obj.size() > 0) {
-                                binding.emailTextView.text = obj?.get(0)?.asJsonObject?.get("email")?.asString
-                                binding.nomeTextView.text = obj?.get(0)?.asJsonObject?.get("nome")?.asString
-                                binding.cognomeTextView.text = obj?.get(0)?.asJsonObject?.get("cognome")?.asString
-                                binding.telefonoTextView.text = obj?.get(0)?.asJsonObject?.get("telefono")?.asString
-                                binding.passwordTextView.text = obj?.get(0)?.asJsonObject?.get("password")?.asString
+                                binding.emailTextView.text = obj.get(0)?.asJsonObject?.get("email")?.asString
+                                binding.nomeTextView.text = obj.get(0)?.asJsonObject?.get("nome")?.asString
+                                binding.cognomeTextView.text = obj.get(0)?.asJsonObject?.get("cognome")?.asString
+                                val dataNascita = obj.get(0)?.asJsonObject?.get("dataNascita")?.asString
+                                // Conversione delle date nel formato "dd-MM-yyyy"
+                                val sdfInput = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                                val sdfOutput = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+                                val formattedDataNascita = sdfOutput.format(sdfInput.parse(dataNascita))
+                                binding.dataNascitaTextView.text = formattedDataNascita
+                                binding.telefonoTextView.text = obj.get(0)?.asJsonObject?.get("telefono")?.asString
+                                binding.cartaCreditoTextView.text = obj.get(0)?.asJsonObject?.get("cartaCredito")?.asString
+                                binding.passwordTextView.text = obj.get(0)?.asJsonObject?.get("password")?.asString
                             }
                         }
                     }
-                    //System.out.println("response" + response)
-                    //System.out.println("response body" + response.body())
                 }
 
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
