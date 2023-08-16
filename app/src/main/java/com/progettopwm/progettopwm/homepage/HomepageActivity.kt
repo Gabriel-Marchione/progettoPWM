@@ -78,7 +78,6 @@ class HomepageActivity : AppCompatActivity() {
             DatePickerDialog(this, datePicker, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-
         recuperaLettiniPrenotatiAltriUtenti(dataDaInserireDB)
 
         binding.aiutoButton.setOnClickListener {
@@ -112,16 +111,21 @@ class HomepageActivity : AppCompatActivity() {
         val format = "dd-MM-yyyy"
         val sdf = SimpleDateFormat(format, Locale.getDefault())
         val formattedDate = sdf.format(calendar.time)
-        dataCorrente = formattedDate
-        binding.localDateTextView.setText(dataCorrente)
 
-        val format2 = "yyyy-MM-dd"
-        val sdf2 = SimpleDateFormat(format2, Locale.getDefault())
-        dataDaInserireDB = sdf2.format(calendar.time)
-        listaLettiniPrenotatiUtenteCorrente.clear()
-        listaLettiniPrenotatiAltriUtenti.clear()
-        resettaColoriBottoni()
-        recuperaLettiniPrenotatiAltriUtenti(dataDaInserireDB)
+        if (formattedDate >= dataCorrenteFormattata) {
+            dataCorrente = formattedDate
+            binding.localDateTextView.setText(dataCorrente)
+
+            val format2 = "yyyy-MM-dd"
+            val sdf2 = SimpleDateFormat(format2, Locale.getDefault())
+            dataDaInserireDB = sdf2.format(calendar.time)
+            listaLettiniPrenotatiUtenteCorrente.clear()
+            listaLettiniPrenotatiAltriUtenti.clear()
+            resettaColoriBottoni()
+            recuperaLettiniPrenotatiAltriUtenti(dataDaInserireDB)
+        }else{
+            Toast.makeText(this@HomepageActivity, "Seleziona una data valida", Toast.LENGTH_LONG).show()
+        }
     }
 
     //da mettere nella data di oggi
@@ -134,7 +138,6 @@ class HomepageActivity : AppCompatActivity() {
                 "AND PL.flagPrenotazione = 1 " +
                 "AND '${dataInizioPrenotazione}' BETWEEN PL.dataInizioPrenotazione AND PL.dataFinePrenotazione " +
                 "AND U.email != '${filePre.getString("Email", "")}'"
-        System.out.println(query)
         ClientNetwork.retrofit.select(query).enqueue(
             object : Callback<JsonObject>{
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -150,7 +153,6 @@ class HomepageActivity : AppCompatActivity() {
                                     bottone.setBackgroundColor(Color.RED)
                                 }
                             }
-                            System.out.println("ciao" + listaLettiniPrenotatiAltriUtenti)
                             recuperaLettiniPrenotatiDaUtenteCorrente(dataInizioPrenotazione)
                         }
                     }

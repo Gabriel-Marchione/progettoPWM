@@ -37,7 +37,6 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
         val parentManager = parentFragmentManager
 
         fileAvatarRegistrazione = context?.getSharedPreferences("File avatar registrazione", AppCompatActivity.MODE_PRIVATE)!!
-
         if(arguments != null){
             binding.selezioneAvatarRegistrazioneImageView.setImageResource(fileAvatarRegistrazione.getInt("idImmagineAvatarRegistrazione", R.drawable.avatar))
             binding.emailRegistrazionePlainText.setText(arguments?.getString("email")?.trim())
@@ -126,6 +125,7 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
         val format = "dd-MM-yyyy"
         val sdf = SimpleDateFormat(format, Locale.getDefault())
         val formattedDate = sdf.format(calendar.time)
+
         binding.dataNascitaPlainText.setText(formattedDate)
 
         val format2 = "yyyy-MM-dd"

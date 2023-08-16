@@ -125,7 +125,7 @@ class CronologiaPrenotazioniAcquistiActivity : AppCompatActivity() {
                                     val formattedDataFine = sdfOutput.format(sdfInput.parse(dataFinePrenotazione))
 
                                     val prezzoLettino = obj[i].asJsonObject?.get("prezzo")?.asString?.trim('"')
-                                    data.add(LettiniItemsViewModel(idLettino, numeroPrenotazione, formattedDataInizio, formattedDataFine, prezzoLettino))
+                                    data.add(LettiniItemsViewModel(idLettino, numeroPrenotazione, formattedDataInizio, formattedDataFine, "€ " + prezzoLettino))
                                     }
                                 adapterLettiniPrenotatiPresente = LettiniCustomAdapter(data)
                                 binding.lettiniPrenotatiRecyclerView.adapter = adapterLettiniPrenotatiPresente
@@ -181,7 +181,7 @@ class CronologiaPrenotazioniAcquistiActivity : AppCompatActivity() {
                                     val formattedDataFine = sdfOutput.format(sdfInput.parse(dataFinePrenotazione))
 
                                     val prezzoLettino = obj[i].asJsonObject?.get("prezzo")?.asString?.trim('"')
-                                    data.add(LettiniItemsViewModel(idLettino, numeroPrenotazione, formattedDataInizio, formattedDataFine, prezzoLettino))
+                                    data.add(LettiniItemsViewModel(idLettino, numeroPrenotazione, formattedDataInizio, formattedDataFine, "€ " + prezzoLettino))
                                 }
                                 adapterLettiniPrenotatiPassato = LettiniCustomAdapter(data)
                                 binding.cronologiaLettiniPrenotatiRecyclerView.adapter = adapterLettiniPrenotatiPassato
@@ -209,7 +209,8 @@ class CronologiaPrenotazioniAcquistiActivity : AppCompatActivity() {
     fun recuperaCronologiaAcquistiConsumazioni(){
         val query = "SELECT APA.idProdottoAcquistato, PA.denominazione, PA.ingredienti, PA.prezzo, PA.imgProdotto, APA.dataAcquisto " +
                 "FROM Utente U, ProdottoAlimentare PA, AcquistoProdottoAlimentare APA " +
-                "WHERE U.email = APA.emailUtente AND PA.idProdottoAlimentare = APA.idProdottoAcquistato AND APA.emailUtente = '${filePre.getString("Email", "")}'"
+                "WHERE U.email = APA.emailUtente AND PA.idProdottoAlimentare = APA.idProdottoAcquistato AND APA.emailUtente = '${filePre.getString("Email", "")}' " +
+                "ORDER BY APA.dataAcquisto DESC"
         val data = ArrayList<ConsumazioniAcquistateItemsViewModel>()
         ClientNetwork.retrofit.select(query).enqueue(
             object : Callback<JsonObject>{
@@ -223,7 +224,10 @@ class CronologiaPrenotazioniAcquistiActivity : AppCompatActivity() {
                                     val denominazione = obj[i].asJsonObject?.get("denominazione")?.asString
                                     val immagineURL = obj[i].asJsonObject?.get("imgProdotto")?.asString
                                     val dataAcquisto = obj[i].asJsonObject?.get("dataAcquisto")?.asString
-                                    data.add(ConsumazioniAcquistateItemsViewModel(idProdotto, dataAcquisto, denominazione,immagineURL))
+                                    val sdfInput = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                                    val sdfOutput = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+                                    val formattedDataAcquisto = sdfOutput.format(sdfInput.parse(dataAcquisto))
+                                    data.add(ConsumazioniAcquistateItemsViewModel(idProdotto, formattedDataAcquisto, denominazione, immagineURL))
                                 }
                                 adapterCronologiaAcquisti = ConsumazioniAcquistateCustomAdapter(data)
                                 binding.cronologiaConsumazioniRecyclerView.adapter = adapterCronologiaAcquisti

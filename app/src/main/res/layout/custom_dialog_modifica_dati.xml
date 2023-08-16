@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="20dp"
@@ -157,7 +161,7 @@
             android:background="@null"
             android:ems="10"
             android:hint="Telefono"
-            android:inputType="textPersonName" />
+            android:inputType="phone" />
 
     </LinearLayout>
 
@@ -185,7 +189,7 @@
             android:background="@null"
             android:ems="10"
             android:hint="Carta di credito"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
     </LinearLayout>
 
@@ -193,6 +197,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
         android:orientation="horizontal">
 
         <Button
@@ -220,3 +225,4 @@
 
 
 </LinearLayout>
+</ScrollView>

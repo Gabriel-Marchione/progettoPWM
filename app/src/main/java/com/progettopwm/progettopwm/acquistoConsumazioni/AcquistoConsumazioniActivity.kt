@@ -61,13 +61,13 @@ class AcquistoConsumazioniActivity : AppCompatActivity() {
                                     val denominazione = obj[i].asJsonObject?.get("denominazione")?.asString?.trim('"')
                                     val flagCibo = obj[i].asJsonObject?.get("flagCibo")?.asInt
                                     val ingredienti = obj[i].asJsonObject?.get("ingredienti")?.asString?.trim('"')
-                                    val prezzo = obj[i].asJsonObject?.get("prezzo")?.asString?.trim('"') + "€"
+                                    val prezzo = obj[i].asJsonObject?.get("prezzo")?.asString?.trim('"')
                                     val immagine = obj[i].asJsonObject?.get("imgProdotto")?.asString?.trim('"')
                                     System.out.println(immagine)
                                     if (flagCibo == 1) {
-                                        dataCibo.add(ConsumazioniItemsViewModel(idProdotto, denominazione, prezzo, ingredienti, immagine))
+                                        dataCibo.add(ConsumazioniItemsViewModel(idProdotto, denominazione, "€ " + prezzo, ingredienti, immagine))
                                     } else {
-                                        dataBevande.add(ConsumazioniItemsViewModel(idProdotto, denominazione, prezzo, ingredienti, immagine))
+                                        dataBevande.add(ConsumazioniItemsViewModel(idProdotto, denominazione, "€ " + prezzo, ingredienti, immagine))
                                     }
                                 }
                                 adapterBevande = ConsumazioniCustomAdapter(dataBevande)
@@ -75,7 +75,7 @@ class AcquistoConsumazioniActivity : AppCompatActivity() {
 
                                 adapterBevande.setOnClickListener(object : ConsumazioniCustomAdapter.OnClickListener{
                                     override fun onClick(position: Int, model: ConsumazioniItemsViewModel) {
-                                        mostraDialogoConfermaAcquisto(model.denominazione, model.idProdotto)
+                                        mostraDialogoConfermaAcquisto(model.denominazione, model.idProdotto, model.prezzo)
                                     }
 
                                 })
@@ -85,7 +85,7 @@ class AcquistoConsumazioniActivity : AppCompatActivity() {
 
                                 adapterCibo.setOnClickListener(object : ConsumazioniCustomAdapter.OnClickListener{
                                     override fun onClick(position: Int, model: ConsumazioniItemsViewModel) {
-                                        mostraDialogoConfermaAcquisto(model.denominazione, model.idProdotto)
+                                        mostraDialogoConfermaAcquisto(model.denominazione, model.idProdotto, model.prezzo)
                                     }
 
                                 })
@@ -106,10 +106,11 @@ class AcquistoConsumazioniActivity : AppCompatActivity() {
         )
     }
 
-    fun mostraDialogoConfermaAcquisto(denominazioneProdotto : String?, idProdotto: Int?){
+    fun mostraDialogoConfermaAcquisto(denominazioneProdotto : String?, idProdotto: Int?, prezzoProdotto : String?){
         val dialog = android.app.AlertDialog.Builder(this)
             .setTitle("Conferma acquisto")
-            .setMessage("Vuoi comprare ${denominazioneProdotto}?")
+            .setMessage("Vuoi comprare ${denominazioneProdotto}? \n" +
+                    "Costo: ${prezzoProdotto}")
             .setPositiveButton("Conferma") {dialog , _ ->
                 effettuaQueryAcquistoProdotto(idProdotto)
                 dialog.dismiss()
@@ -126,7 +127,7 @@ class AcquistoConsumazioniActivity : AppCompatActivity() {
             object : Callback<JsonObject>{
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     if(response.isSuccessful){
-                        Toast.makeText(this@AcquistoConsumazioniActivity, "Acquisto effettuato", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@AcquistoConsumazioniActivity, "Acquisto effettuato.", Toast.LENGTH_LONG).show()
                     }
                 }
 

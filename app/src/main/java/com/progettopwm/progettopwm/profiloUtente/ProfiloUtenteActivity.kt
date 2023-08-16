@@ -26,11 +26,13 @@ class ProfiloUtenteActivity : AppCompatActivity() {
     lateinit var filePre : SharedPreferences
     lateinit var fileAvatar : SharedPreferences
 
-    //todo controlli date di nascita per comprare alcolici e per registrarsi
-    //todo sistemare campi di profilo
-    //todo aggiungere prezzo nella conferma dell'acquisto
-    //todo aggiungere controllo per non prenotare lettini delle giornate passate
-    //todo nasconderre recycler view cibo
+    //todo controlli date di nascita per comprare alcolici e per registrarsi -> DA FARE??
+    //----- xx aggiustare conto dei giorni della prenotazione ----- xx
+    //todo aggiustare testo tutorial
+    //----- xx FATTO xx sistemare campi di profilo ----- xx FATTO xx
+    //----- xx aggiungere prezzo nella conferma dell'acquisto ----- xx
+    //----- xx FATTO xx aggiungere controllo per non prenotare lettini delle giornate passate ----- xx FATTO xx
+    //----- xx FATTO xx  nasconderre recycler view cibo ----- xx FATTO xx
     //todo arrotondare immagini delle recycler view?
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)

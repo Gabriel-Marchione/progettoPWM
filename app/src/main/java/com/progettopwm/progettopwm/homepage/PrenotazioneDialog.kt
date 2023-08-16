@@ -58,7 +58,7 @@ class PrenotazioneDialog(context : Context, indiceLettino : Int, dataCorrente : 
 
     private fun creaSpinner() {
         val spinner = binding.spinnerPrenota
-        val giorni = arrayOf("Solo oggi", 1, 2, 3, 4, 5, 6, 7)
+        val giorni = arrayOf("Solo oggi", 2, 3, 4, 5, 6, 7)
 
         val adapterSpinner = ArrayAdapter(context, R.layout.simple_spinner_item, giorni)
         adapterSpinner.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
@@ -75,7 +75,7 @@ class PrenotazioneDialog(context : Context, indiceLettino : Int, dataCorrente : 
         if (giorni.equals("Solo oggi")) {
             dataCalcolata = dataInserireDBLocalDate.toString().trim()
         } else {
-            dataCalcolata = dataInserireDBLocalDate.plusDays(giorni.toLong()).toString().trim()
+            dataCalcolata = dataInserireDBLocalDate.plusDays(giorni.toLong()-1).toString().trim()
         }
         return dataCalcolata
     }
@@ -193,7 +193,7 @@ class PrenotazioneDialog(context : Context, indiceLettino : Int, dataCorrente : 
                     if(response.isSuccessful){
                         if(response.body() != null) {
                             val obj = response.body()?.getAsJsonArray("queryset")
-                            binding.prezzoLettinoTextView.setText(obj?.get(0)?.asJsonObject?.get("prezzo")?.toString()?.trim('"'))
+                            binding.prezzoLettinoTextView.setText("€ " + obj?.get(0)?.asJsonObject?.get("prezzo")?.toString()?.trim('"'))
                         }
                     }
                 }
