@@ -26,7 +26,6 @@ class ProfiloUtenteActivity : AppCompatActivity() {
     lateinit var filePre : SharedPreferences
     lateinit var fileAvatar : SharedPreferences
 
-    //todo controlli date di nascita per comprare alcolici e per registrarsi -> DA FARE??
     //----- xx aggiustare conto dei giorni della prenotazione ----- xx
     //todo aggiustare testo tutorial
     //----- xx FATTO xx sistemare campi di profilo ----- xx FATTO xx

@@ -114,6 +114,7 @@ class AcquistoConsumazioniActivity : AppCompatActivity() {
             .setPositiveButton("Conferma") {dialog , _ ->
                 effettuaQueryAcquistoProdotto(idProdotto)
                 dialog.dismiss()
+
             }
             .setNegativeButton("Annulla", null)
             .create()
