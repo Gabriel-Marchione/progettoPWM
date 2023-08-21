@@ -1,5 +1,6 @@
 package com.progettopwm.progettopwm.registrazioneUtente
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.progettopwm.R
 import com.example.progettopwm.databinding.ActivityRegistrazioneBinding
 import com.example.progettopwm.databinding.FragmentRegistrazionePrimaParteBinding
+import com.progettopwm.progettopwm.autenticazioneUtente.LoginActivity
 import com.progettopwm.progettopwm.profiloUtente.ModificaAvatarCustomDialog
 
 class RegistrazioneUtenteActivity : AppCompatActivity() {
@@ -16,6 +18,11 @@ class RegistrazioneUtenteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistrazioneBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.vaiALoginRegistrazioneFragmentTextView.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

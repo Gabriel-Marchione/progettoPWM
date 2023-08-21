@@ -236,18 +236,5 @@
             android:background="@drawable/login_button_background"
             android:text="Avanti"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/vaiALoginRegistrazioneFragmentTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:text="Possiedi già un account? Autenticati"
-            android:textAlignment="center"
-            android:textColor="#00A4FF"
-            android:textSize="16sp"
-            android:textStyle="bold" />
     </LinearLayout>
 </FrameLayout>

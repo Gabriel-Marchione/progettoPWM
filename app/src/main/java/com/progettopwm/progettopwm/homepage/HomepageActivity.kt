@@ -90,7 +90,7 @@ class HomepageActivity : AppCompatActivity() {
                 if (listaLettiniPrenotatiAltriUtenti.contains(index + 1)) {
                     Toast.makeText(this, "Lettino già prenotato", Toast.LENGTH_LONG).show()
                 } else if (listaLettiniPrenotatiUtenteCorrente.contains(index + 1)) {
-                    mostraDialog()
+                    Toast.makeText(this, "Lettino già prenotato da te", Toast.LENGTH_LONG).show()
                 } else if (listaLettiniPrenotatiUtenteCorrente.size >= 3) {
                     Toast.makeText(this, "Non puoi prenotare più di 3 lettini!", Toast.LENGTH_LONG)
                         .show()
@@ -228,17 +228,6 @@ class HomepageActivity : AppCompatActivity() {
         )
     }*/
 
-    fun mostraDialog(){
-        val dialog = AlertDialog.Builder(this)
-            .setTitle("Annulla prenotazione")
-            .setMessage("Annullare la prenotazione?")
-            .setPositiveButton("Conferma") {dialog , _ ->
-                dialog.dismiss()
-            }
-            .setNegativeButton("Torna indietro", null)
-            .create()
-        dialog.show()
-    }
 
     fun mostraDialogAiutoPrenotazione(){
         val dialog = AlertDialog.Builder(this)

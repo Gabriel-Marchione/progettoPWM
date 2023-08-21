@@ -114,10 +114,6 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
             dataDaInserireDB = ""
         }
 
-        binding.vaiALoginRegistrazioneFragmentTextView.setOnClickListener {
-            val intent = Intent(this.context, LoginActivity::class.java)
-            startActivity(intent)
-        }
         return binding.root
     }
 
