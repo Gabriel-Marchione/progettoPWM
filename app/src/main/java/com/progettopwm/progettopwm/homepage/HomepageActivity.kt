@@ -235,7 +235,7 @@ class HomepageActivity : AppCompatActivity() {
             .setPositiveButton("Conferma") {dialog , _ ->
                 dialog.dismiss()
             }
-            .setNegativeButton("Annulla", null)
+            .setNegativeButton("Torna indietro", null)
             .create()
         dialog.show()
     }
@@ -247,7 +247,8 @@ class HomepageActivity : AppCompatActivity() {
             .setMessage("La schermata rappresenta una fila di lettini che sono disposti in fila di 5 sulla spiaggia. " +
                     "\nOgni lettino ha un prezzo associato, e la posizione della fila determina il prezzo: più il numero della fila è basso, più il lettino si trova vicino al mare, " +
                     "quindi il prezzo potrebbe essere maggiore. \nPer esempio i lettini 1-2-3-4-5 sono quelli più vicino al mare ed hanno un costo maggiore rispetto a quelli delle altre file." +
-                    "\nOgni lettino può trovarsi in uno dei tre stati: libero (blu), occupato da altre persone (rosso) o occupato da te (verde).")
+                    "\nOgni lettino può trovarsi in uno dei tre stati: libero (blu), occupato da altre persone (rosso) o occupato da te (verde)." +
+                    "\nPer terminare una prenotazione, andare sulla cronologia degli acquisti, cliccare sul lettino desiderato e confermare l'operazione.")
             .setPositiveButton("Ho capito!"){ dialog, _ ->
                 dialog.dismiss()
             }

@@ -122,16 +122,29 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
     }
 
     private fun updateLable(calendar: Calendar) {
-        val format = "dd-MM-yyyy"
-        val sdf = SimpleDateFormat(format, Locale.getDefault())
-        val formattedDate = sdf.format(calendar.time)
+        val selectedDate = calendar.time
+        val oggi = Calendar.getInstance()
+        val isDateValid = selectedDate.before(oggi.time)
 
-        binding.dataNascitaPlainText.setText(formattedDate)
+        if (!isDateValid) {
+            Toast.makeText(
+                requireContext(),
+                "Errore nell'inserimento della data",
+                Toast.LENGTH_LONG
+            ).show()
+        }else{
+            val format = "dd-MM-yyyy"
+            val sdf = SimpleDateFormat(format, Locale.getDefault())
+            val formattedDate = sdf.format(calendar.time)
 
-        val format2 = "yyyy-MM-dd"
-        val sdf2 = SimpleDateFormat(format2, Locale.getDefault())
-        dataDaInserireDB = sdf2.format(calendar.time)
+            binding.dataNascitaPlainText.setText(formattedDate)
+
+            val format2 = "yyyy-MM-dd"
+            val sdf2 = SimpleDateFormat(format2, Locale.getDefault())
+            dataDaInserireDB = sdf2.format(calendar.time)
+        }
     }
+
 
     private fun checkCampi() : Boolean{
         val patterNomeCognomeEmail = Regex("^[0-9]+")
@@ -157,6 +170,8 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
             Toast.makeText(this.requireContext(), "I campi sono vuoti", Toast.LENGTH_LONG).show()
         return check
     }
+
+
 
     private fun addArgs() : Bundle{
         val message = Bundle()

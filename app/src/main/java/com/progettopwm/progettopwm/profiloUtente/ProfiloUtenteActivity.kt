@@ -31,8 +31,8 @@ class ProfiloUtenteActivity : AppCompatActivity() {
     //----- xx FATTO xx sistemare campi di profilo ----- xx FATTO xx
     //----- xx aggiungere prezzo nella conferma dell'acquisto ----- xx
     //----- xx FATTO xx aggiungere controllo per non prenotare lettini delle giornate passate ----- xx FATTO xx
-    //----- xx FATTO xx  nasconderre recycler view cibo ----- xx FATTO xx
-    //todo arrotondare immagini delle recycler view?
+    //----- xx FATTO xx nasconderre recycler view cibo ----- xx FATTO xx
+    //----- xx FATTO xx arrotondare immagini delle recycler view? ----- xx FATTO xx
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         binding = ActivityVisualizzazioneProfiloBinding.inflate(layoutInflater)
@@ -57,7 +57,8 @@ class ProfiloUtenteActivity : AppCompatActivity() {
             val alertDialog = AlertDialog.Builder(this)
                 .setTitle("Conferma logout")
                 .setMessage("Vuoi effettuare il logout? Perderai la preferenza dell'avatar scelto ma potrai sceglierlo nuovamente.")
-                .setPositiveButton("Conferma") { dialog, which ->
+                .setPositiveButton("Logout" +
+                        "") { dialog, which ->
                     val editor = filePre.edit()
                     editor.clear()
                     editor.apply()

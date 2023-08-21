@@ -32,7 +32,6 @@ class ModificaDatiCustomDialog(context: Context, emailActivity : String?, nomeAc
     val telefono = telefonoActivity
     val cartaCredito = cartaCreditoActivity
 
-    //todo sistemare la sessione
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = CustomDialogModificaDatiBinding.inflate(layoutInflater)
@@ -79,15 +78,26 @@ class ModificaDatiCustomDialog(context: Context, emailActivity : String?, nomeAc
     }
 
     private fun updateLable(calendar: Calendar) {
-        val format = "dd-MM-yyyy"
-        val sdf = SimpleDateFormat(format, Locale.getDefault())
-        val formattedDate = sdf.format(calendar.time)
-        binding.dataNascitaModificaPlainText.setText(formattedDate)
+        val selectedDate = calendar.time
+        val oggi = Calendar.getInstance()
+        val isDateValid = selectedDate.before(oggi.time)
 
-        val format2 = "yyyy-MM-dd"
-        val sdf2 = SimpleDateFormat(format2, Locale.getDefault())
-        dataDaInserireDB = sdf2.format(calendar.time)
-        System.out.println(dataDaInserireDB)
+        if (!isDateValid) {
+            Toast.makeText(
+                context,
+                "Errore nell'inserimento della data",
+                Toast.LENGTH_LONG
+            ).show()
+        }else{
+            val format = "dd-MM-yyyy"
+            val sdf = SimpleDateFormat(format, Locale.getDefault())
+            val formattedDate = sdf.format(calendar.time)
+            binding.dataNascitaModificaPlainText.setText(formattedDate)
+
+            val format2 = "yyyy-MM-dd"
+            val sdf2 = SimpleDateFormat(format2, Locale.getDefault())
+            dataDaInserireDB = sdf2.format(calendar.time)
+        }
     }
 
     private fun parseData(dataDaFormattare : String) : String{

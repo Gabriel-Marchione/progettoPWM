@@ -39,7 +39,6 @@ class PrenotazioneDialog(context : Context, indiceLettino : Int, dataCorrente : 
         setContentView(binding.root)
 
         filePre = context.getSharedPreferences("Credenziali", AppCompatActivity.MODE_PRIVATE)
-
         creaSpinner()
 
         binding.numeroLettinoTextView.setText(numeroLettino.toString())
@@ -52,7 +51,6 @@ class PrenotazioneDialog(context : Context, indiceLettino : Int, dataCorrente : 
                 numeroLettino
             )
         }
-
     }
 
 

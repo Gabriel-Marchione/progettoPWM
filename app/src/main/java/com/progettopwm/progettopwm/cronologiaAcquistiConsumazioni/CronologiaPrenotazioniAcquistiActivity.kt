@@ -267,7 +267,7 @@ class CronologiaPrenotazioniAcquistiActivity : AppCompatActivity() {
         val dialog = android.app.AlertDialog.Builder(this)
             .setTitle("Termina prenotazione")
             .setMessage("Vuoi terminare la prenotazione #${numeroPrenotazione} del lettino N° ${idLettino}?")
-            .setPositiveButton("Conferma") {dialog , _ ->
+            .setPositiveButton("Termina") {dialog , _ ->
                 queryterminaPrenotazione(numeroPrenotazione, idLettino)
                 dialog.dismiss()
             }
