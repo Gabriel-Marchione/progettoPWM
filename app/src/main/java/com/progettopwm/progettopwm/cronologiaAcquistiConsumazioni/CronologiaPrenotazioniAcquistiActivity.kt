@@ -218,7 +218,7 @@ class CronologiaPrenotazioniAcquistiActivity : AppCompatActivity() {
     }
 
     fun recuperaCronologiaAcquistiConsumazioni(){
-        val query = "SELECT APA.idProdottoAcquistato, PA.denominazione, PA.ingredienti, PA.prezzo, PA.imgProdotto, APA.dataAcquisto " +
+        val query = "SELECT APA.idTransazione, PA.denominazione, PA.ingredienti, PA.prezzo, PA.imgProdotto, APA.dataAcquisto " +
                 "FROM Utente U, ProdottoAlimentare PA, AcquistoProdottoAlimentare APA " +
                 "WHERE U.email = APA.emailUtente AND PA.idProdottoAlimentare = APA.idProdottoAcquistato AND APA.emailUtente = '${filePre.getString("Email", "")}' " +
                 "ORDER BY APA.dataAcquisto DESC"
@@ -231,7 +231,7 @@ class CronologiaPrenotazioniAcquistiActivity : AppCompatActivity() {
                             val obj = response.body()?.getAsJsonArray("queryset")
                             if (obj != null && obj.size() > 0){
                                 for (i in 0 until obj.size()) {
-                                    val idProdotto = obj[i].asJsonObject?.get("idProdottoAcquistato")?.asString
+                                    val idProdotto = obj[i].asJsonObject?.get("idTransazione")?.asString
                                     val denominazione = obj[i].asJsonObject?.get("denominazione")?.asString
                                     val immagineURL = obj[i].asJsonObject?.get("imgProdotto")?.asString
                                     val dataAcquisto = obj[i].asJsonObject?.get("dataAcquisto")?.asString
