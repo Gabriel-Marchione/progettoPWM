@@ -49,6 +49,7 @@ class HomepageActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val currentDate = Calendar.getInstance() // Ottieni la data corrente
         super.onCreate(savedInstanceState)
         binding = ActivityHomepageBinding.inflate(layoutInflater)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -71,7 +72,7 @@ class HomepageActivity : AppCompatActivity() {
             calendar.set(Calendar.YEAR, year)
             calendar.set(Calendar.MONTH, month)
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            updateLable(calendar)
+            updateLable(calendar, currentDate)
         }
 
         binding.selezionaDataVisualizzazioneLettiniButton.setOnClickListener {
@@ -101,14 +102,9 @@ class HomepageActivity : AppCompatActivity() {
 
             }
         }
-
-
-
-
     }
 
-    private fun updateLable(calendar: Calendar) {
-        val currentDate = Calendar.getInstance() // Ottieni la data corrente
+    private fun updateLable(calendar: Calendar, currentDate : Calendar) {
         if (calendar >= currentDate) {
             val format = "dd-MM-yyyy"
             val sdf = SimpleDateFormat(format, Locale.getDefault())
@@ -128,9 +124,6 @@ class HomepageActivity : AppCompatActivity() {
             Toast.makeText(this@HomepageActivity, "Seleziona una data valida", Toast.LENGTH_LONG).show()
         }
     }
-
-
-    //da mettere nella data di oggi
 
     //tramite questo metodo mi recupero l'id dei lettini prenotati, e coloro di rosso il bottone con id recuperato-1
     fun recuperaLettiniPrenotatiAltriUtenti(dataInizioPrenotazione : String){
