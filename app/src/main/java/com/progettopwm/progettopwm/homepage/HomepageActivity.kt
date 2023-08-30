@@ -108,13 +108,14 @@ class HomepageActivity : AppCompatActivity() {
     }
 
     private fun updateLable(calendar: Calendar) {
-        val format = "dd-MM-yyyy"
-        val sdf = SimpleDateFormat(format, Locale.getDefault())
-        val formattedDate = sdf.format(calendar.time)
+        val currentDate = Calendar.getInstance() // Ottieni la data corrente
+        if (calendar >= currentDate) {
+            val format = "dd-MM-yyyy"
+            val sdf = SimpleDateFormat(format, Locale.getDefault())
+            val formattedDate = sdf.format(calendar.time)
 
-        if (formattedDate >= dataCorrenteFormattata) {
             dataCorrente = formattedDate
-            binding.localDateTextView.setText(dataCorrente)
+            binding.localDateTextView.text = dataCorrente
 
             val format2 = "yyyy-MM-dd"
             val sdf2 = SimpleDateFormat(format2, Locale.getDefault())
@@ -123,10 +124,11 @@ class HomepageActivity : AppCompatActivity() {
             listaLettiniPrenotatiAltriUtenti.clear()
             resettaColoriBottoni()
             recuperaLettiniPrenotatiAltriUtenti(dataDaInserireDB)
-        }else{
+        } else {
             Toast.makeText(this@HomepageActivity, "Seleziona una data valida", Toast.LENGTH_LONG).show()
         }
     }
+
 
     //da mettere nella data di oggi
 

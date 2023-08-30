@@ -128,7 +128,7 @@ class AcquistoConsumazioniActivity : AppCompatActivity() {
             object : Callback<JsonObject>{
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     if(response.isSuccessful){
-                        Toast.makeText(this@AcquistoConsumazioniActivity, "Acquisto effettuato.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@AcquistoConsumazioniActivity, "Acquisto effettuato", Toast.LENGTH_LONG).show()
                     }else{
                         System.out.println(response.message())
                     }

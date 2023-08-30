@@ -221,7 +221,8 @@ class CronologiaPrenotazioniAcquistiActivity : AppCompatActivity() {
         val query = "SELECT APA.idTransazione, PA.denominazione, PA.ingredienti, PA.prezzo, PA.imgProdotto, APA.dataAcquisto " +
                 "FROM Utente U, ProdottoAlimentare PA, AcquistoProdottoAlimentare APA " +
                 "WHERE U.email = APA.emailUtente AND PA.idProdottoAlimentare = APA.idProdottoAcquistato AND APA.emailUtente = '${filePre.getString("Email", "")}' " +
-                "ORDER BY APA.dataAcquisto DESC"
+                "ORDER BY APA.idTransazione DESC, APA.dataAcquisto DESC "
+        System.out.println("cronologia " + query)
         val data = ArrayList<ConsumazioniAcquistateItemsViewModel>()
         ClientNetwork.retrofit.select(query).enqueue(
             object : Callback<JsonObject>{
