@@ -38,6 +38,7 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
 
         fileAvatarRegistrazione = context?.getSharedPreferences("File avatar registrazione", AppCompatActivity.MODE_PRIVATE)!!
         if(arguments != null){
+            System.out.println("fragment 1 " + arguments)
             binding.selezioneAvatarRegistrazioneImageView.setImageResource(fileAvatarRegistrazione.getInt("idImmagineAvatarRegistrazione", R.drawable.avatar))
             binding.emailRegistrazionePlainText.setText(arguments?.getString("email")?.trim())
             binding.nomeRegistrazionePlainText.setText(arguments?.getString("nome")?.trim())
@@ -143,6 +144,7 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
 
 
     private fun checkCampi() : Boolean{
+        val patternEmail = Regex("^[a-zA-Z0-9.]+@[a-zA-Z]+\\.([a-zA-Z]+)\$")
         val patterNomeCognomeEmail = Regex("^[0-9]+")
         var check = false
 
@@ -151,7 +153,7 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
             && binding.cognomeRegistrazionePlainText.text.trim().isNotEmpty() && binding.dataNascitaPlainText.text.trim().isNotEmpty()
         ){
             check = true
-            if(binding.emailRegistrazionePlainText.text.matches(patterNomeCognomeEmail)){
+            if(!binding.emailRegistrazionePlainText.text.matches(patternEmail)){
                 check = false
                 Toast.makeText(this.requireContext(), "Inserire una email valida", Toast.LENGTH_LONG).show()
             }else if(binding.nomeRegistrazionePlainText.text.matches(patterNomeCognomeEmail)){
@@ -177,6 +179,10 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
         message.putString("cognome", binding.cognomeRegistrazionePlainText.text.toString().trim())
         message.putString("dataNascita", binding.dataNascitaPlainText.text.toString().trim())
         message.putString("dataNascitaDB", dataDaInserireDB.trim())
+        //secondo fragment
+        message.putString("telefono", arguments?.getString("telefono"))
+        message.putString("cartaCredito", arguments?.getString("cartaCredito"))
+        message.putString("password", arguments?.getString("password"))
         return message
     }
 
@@ -184,6 +190,7 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
         val fragment = parentManager.findFragmentByTag(tag)
         return fragment != null
     }
+
     override fun onAvatarSelected(avatarResId: Int) {
         // Aggiorna l'immagine nel frammento con l'avatar selezionato
         binding.selezioneAvatarRegistrazioneImageView.setImageResource(avatarResId)

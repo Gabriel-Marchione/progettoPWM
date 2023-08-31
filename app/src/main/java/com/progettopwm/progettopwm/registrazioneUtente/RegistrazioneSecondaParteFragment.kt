@@ -36,11 +36,16 @@ class RegistrazioneSecondaParteFragment : Fragment(R.layout.fragment_registrazio
         binding2 = FragmentRegistrazionePrimaParteBinding.inflate(inflater)
         val parentManager = parentFragmentManager
         if(arguments!=null) {
+            System.out.println("fragment 2 " + arguments)
             avatar = arguments?.getInt("idImmagineAvatarRegistrazione")!!
             email = arguments?.getString("email").toString().trim()
             nome = arguments?.getString("nome").toString().trim()
             cognome = arguments?.getString("cognome").toString().trim()
             dataNascita = arguments?.getString("dataNascitaDB").toString().trim()
+
+            binding.telefonoRegistrazionePlainText.setText(arguments?.getString("telefono"))
+            binding.cartaCreditoRegistrazionePlainText.setText(arguments?.getString("cartaCredito"))
+            binding.passwordRegistrazionePlainText.setText(arguments?.getString("password"))
 
             binding.confermaRegistrazione.setOnClickListener {
                 if (checkCampi()) {
@@ -55,9 +60,9 @@ class RegistrazioneSecondaParteFragment : Fragment(R.layout.fragment_registrazio
         binding.tornaPrimaParte.setOnClickListener{
             val transaction = parentManager.beginTransaction()
             val newFrag = RegistrazionePrimaParteFragment()
-            newFrag.arguments = arguments
+            newFrag.arguments = addArgs(arguments)
             transaction.setCustomAnimations(R.anim.exit_to_left, R.anim.enter_from_left)
-            transaction.replace(R.id.fragmentContainerView, newFrag, "Fragment 2").commit()
+            transaction.replace(R.id.fragmentContainerView, newFrag, "Fragment 1").commit()
         }
 
         binding.cancellaTelefonoPlainText.setOnClickListener {
@@ -145,5 +150,12 @@ class RegistrazioneSecondaParteFragment : Fragment(R.layout.fragment_registrazio
                 }
             }
         )
+    }
+
+    private fun addArgs(arguments : Bundle?) : Bundle? {
+        arguments?.putString("telefono", binding.telefonoRegistrazionePlainText.text.trim().toString())
+        arguments?.putString("cartaCredito", binding.cartaCreditoRegistrazionePlainText.text.trim().toString())
+        arguments?.putString("password", binding.passwordRegistrazionePlainText.text.trim().toString())
+        return arguments
     }
 }

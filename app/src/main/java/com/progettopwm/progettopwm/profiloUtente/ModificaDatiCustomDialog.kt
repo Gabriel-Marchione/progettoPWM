@@ -144,6 +144,7 @@ class ModificaDatiCustomDialog(context: Context, emailActivity : String?, nomeAc
     }
 
     private fun checkCampi() : Boolean{
+        val patternEmail = Regex("^[a-zA-Z0-9.]+@[a-zA-Z]+\\.([a-zA-Z]+)\$")
         val patterNomeCognomeEmail = Regex("^[0-9]+")
         val patternTelefono = Regex("^[0-9]{10}")
         val patternCartaDiCredito = Regex("^[0-9]{16}")
@@ -155,7 +156,7 @@ class ModificaDatiCustomDialog(context: Context, emailActivity : String?, nomeAc
             && binding.telefonoModificaProfiloPlainText.text.trim().isNotEmpty() && binding.cartaCreditoModificaProfiloPlainText.text.trim().isNotEmpty()
         ){
             check = true
-            if(binding.emailModificaProfiloPlainText.text.matches(patterNomeCognomeEmail)){
+            if(!binding.emailModificaProfiloPlainText.text.matches(patternEmail)){
                 check = false
                 Toast.makeText(context, "Inserire una email valida", Toast.LENGTH_LONG).show()
             }else if(binding.nomeModificaProfiloPlainText.text.matches(patterNomeCognomeEmail)){
