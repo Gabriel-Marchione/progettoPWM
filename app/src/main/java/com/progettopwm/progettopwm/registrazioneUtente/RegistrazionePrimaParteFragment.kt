@@ -175,8 +175,9 @@ class RegistrazionePrimaParteFragment : Fragment(R.layout.fragment_registrazione
         val message = Bundle()
         message.putInt("idImmagineAvatarRegistrazione", fileAvatarRegistrazione.getInt("idImmagineAvatarRegistrazione", R.drawable.avatar))
         message.putString("email", binding.emailRegistrazionePlainText.text.toString().trim())
-        message.putString("nome", binding.nomeRegistrazionePlainText.text.toString().trim())
-        message.putString("cognome", binding.cognomeRegistrazionePlainText.text.toString().trim())
+        message.putString("nome", binding.nomeRegistrazionePlainText.text.toString().trim().capitalize(
+            Locale.ROOT))
+        message.putString("cognome", binding.cognomeRegistrazionePlainText.text.toString().trim().capitalize(Locale.ROOT))
         message.putString("dataNascita", binding.dataNascitaPlainText.text.toString().trim())
         message.putString("dataNascitaDB", dataDaInserireDB.trim())
         //secondo fragment

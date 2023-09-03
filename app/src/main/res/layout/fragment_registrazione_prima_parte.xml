@@ -204,7 +204,7 @@
 
             <EditText
                 android:id="@+id/dataNascitaPlainText"
-                android:layout_width="130dp"
+                android:layout_width="135dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"

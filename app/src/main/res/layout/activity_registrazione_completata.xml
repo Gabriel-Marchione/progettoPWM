@@ -49,10 +49,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="510dp"
                 android:layout_marginRight="15dp"
                 android:background="@drawable/login_riquadro_campi_border"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -60,6 +62,7 @@
                     android:layout_width="300dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
+                    android:gravity="center"
                     android:text="Avanti"
                     app:cornerRadius="80dp" />
             </LinearLayout>
