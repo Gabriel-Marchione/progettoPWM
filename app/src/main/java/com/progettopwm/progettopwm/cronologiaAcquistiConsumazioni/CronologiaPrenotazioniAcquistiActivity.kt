@@ -106,7 +106,8 @@ class CronologiaPrenotazioniAcquistiActivity : AppCompatActivity() {
                 "WHERE U.email = PL.emailPrenotante AND L.idLettino = PL.idLettinoPrenotato AND PL.flagPrenotazione = 1 AND U.email = '${filePre.getString("Email", "")}'"*/
         val query = "SELECT PL.idLettinoPrenotato, PL.idPrenotazione, PL.dataInizioPrenotazione, PL.dataFinePrenotazione, L.prezzo, PL.flagPrenotazione " +
                 "FROM Utente U, Lettino L, PrenotazioneLettino PL " +
-                "WHERE U.email = PL.emailPrenotante AND L.idLettino = PL.idLettinoPrenotato AND PL.flagPrenotazione = 1 AND '${LocalDate.now().toString().trim()}' <= PL.dataFinePrenotazione AND U.email = '${filePre.getString("Email", "")}'"
+                "WHERE U.email = PL.emailPrenotante AND L.idLettino = PL.idLettinoPrenotato AND PL.flagPrenotazione = 1 AND '${LocalDate.now().toString().trim()}' <= PL.dataFinePrenotazione AND U.email = '${filePre.getString("Email", "")}'" +
+                "ORDER BY PL.idLettinoPrenotato ASC"
         System.out.println(query + "ciao1 ")
         val data = ArrayList<LettiniItemsViewModel>()
         ClientNetwork.retrofit.select(query).enqueue(
