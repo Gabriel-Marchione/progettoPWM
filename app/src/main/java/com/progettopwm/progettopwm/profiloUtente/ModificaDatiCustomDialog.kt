@@ -111,8 +111,8 @@ class ModificaDatiCustomDialog(context: Context, emailActivity : String?, nomeAc
     fun aggiornaDatiProfilo(){
         val query = "UPDATE Utente " +
                 "SET email = '${binding.emailModificaProfiloPlainText.text.toString().trim()}', " +
-                "nome = '${binding.nomeModificaProfiloPlainText.text.toString().trim()}', " +
-                "cognome = '${binding.cognomeModificaProfiloPlainText.text.toString().trim()}', " +
+                "nome = '${binding.nomeModificaProfiloPlainText.text.toString().trim().capitalize(Locale.ROOT)}', " +
+                "cognome = '${binding.cognomeModificaProfiloPlainText.text.toString().trim().capitalize(Locale.ROOT)}', " +
                 "dataNascita = '${dataDaInserireDB}', " +
                 "telefono = '${binding.telefonoModificaProfiloPlainText.text.toString().trim()}', " +
                 "cartaCredito = '${binding.cartaCreditoModificaProfiloPlainText.text.toString().trim()}' " +

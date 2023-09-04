@@ -16,6 +16,7 @@ import com.progettopwm.progettopwm.utils.ClientNetwork
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class RegistrazioneSecondaParteFragment : Fragment(R.layout.fragment_registrazione_seconda_parte) {
     lateinit var binding : FragmentRegistrazioneSecondaParteBinding
@@ -121,7 +122,7 @@ class RegistrazioneSecondaParteFragment : Fragment(R.layout.fragment_registrazio
 
     private fun effettuaQuery(){
         val query = "INSERT INTO Utente (email, nome, cognome, dataNascita, telefono, cartaCredito, password) " +
-                "VALUES ('${email}', '${nome}', '${cognome}', '${dataNascita}', '${binding.telefonoRegistrazionePlainText.text.toString().trim()}', " +
+                "VALUES ('${email}', '${nome.capitalize(Locale.ROOT)}', '${cognome.capitalize(Locale.ROOT)}', '${dataNascita}', '${binding.telefonoRegistrazionePlainText.text.toString().trim()}', " +
                 "'${binding.cartaCreditoRegistrazionePlainText.text.toString().trim()}', '${binding.passwordRegistrazionePlainText.text.toString().trim()}' )"
         ClientNetwork.retrofit.insert(query).enqueue(
             object : Callback<JsonObject>{

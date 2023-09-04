@@ -33,10 +33,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.loginButton.setOnClickListener {
-            if (binding.emailPlainText.text.toString().trim().isEmpty() || binding.passwordPlainText.text.toString().trim().isEmpty()
-            ) {
-                Toast.makeText(this, "Inserisci qualcosa nei campi", Toast.LENGTH_LONG).show()
-            } else {
+            if (checkCampi()) {
                 effettuaQuery()
             }
         }
@@ -65,6 +62,24 @@ class LoginActivity : AppCompatActivity() {
 
 
     }
+
+
+    private fun checkCampi(): Boolean {
+        val patternEmail = Regex("^[a-zA-Z0-9.]+@[a-zA-Z]+\\.([a-zA-Z]+)$")
+        var check = false
+
+        if (binding.emailPlainText.text.trim().isNotEmpty() && binding.passwordPlainText.text.trim().isNotEmpty()) {
+            check = true
+            if (!binding.emailPlainText.text.matches(patternEmail)) {
+                check = false
+                Toast.makeText(this@LoginActivity, "Inserire una email valida", Toast.LENGTH_LONG).show()
+            }
+        } else {
+            Toast.makeText(this@LoginActivity, "I campi sono vuoti", Toast.LENGTH_LONG).show()
+        }
+        return check
+    }
+
 
     fun effettuaQuery(){
         val query = "SELECT * FROM Utente WHERE email = '${binding.emailPlainText.text.toString().trim()}' AND password = '${binding.passwordPlainText.text.toString().trim()}'"
