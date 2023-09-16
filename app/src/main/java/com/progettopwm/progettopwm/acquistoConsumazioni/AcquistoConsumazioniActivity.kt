@@ -1,7 +1,9 @@
 package com.progettopwm.progettopwm.acquistoConsumazioni
 
+import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View.*
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -63,7 +65,6 @@ class AcquistoConsumazioniActivity : AppCompatActivity() {
                                     val ingredienti = obj[i].asJsonObject?.get("ingredienti")?.asString?.trim('"')
                                     val prezzo = obj[i].asJsonObject?.get("prezzo")?.asString?.trim('"')
                                     val immagine = obj[i].asJsonObject?.get("imgProdotto")?.asString?.trim('"')
-                                    System.out.println(immagine)
                                     if (flagCibo == 1) {
                                         dataCibo.add(ConsumazioniItemsViewModel(idProdotto, denominazione, "€ " + prezzo, ingredienti, immagine))
                                     } else {
@@ -100,6 +101,9 @@ class AcquistoConsumazioniActivity : AppCompatActivity() {
                         "Errore del Database o assenza di connessione",
                         Toast.LENGTH_LONG
                     ).show()
+                    binding.bevandeTextView.visibility = GONE
+                    binding.cibiTextView.visibility = GONE
+                    binding.nessunaConnessioneTextView.visibility = VISIBLE
                 }
 
             }
@@ -112,7 +116,7 @@ class AcquistoConsumazioniActivity : AppCompatActivity() {
             .setMessage("Vuoi comprare ${denominazioneProdotto}? \n" +
                     "Costo: ${prezzoProdotto}")
             .setPositiveButton("Conferma") {dialog , _ ->
-                effettuaQueryAcquistoProdotto(idProdotto)
+                effettuaQueryAcquistoProdotto(denominazioneProdotto, idProdotto)
                 dialog.dismiss()
 
             }
@@ -121,14 +125,14 @@ class AcquistoConsumazioniActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    fun effettuaQueryAcquistoProdotto(idProdotto : Int?){
+    fun effettuaQueryAcquistoProdotto(denominazioneProdotto: String?, idProdotto : Int?){
         val query = "INSERT INTO AcquistoProdottoAlimentare (idProdottoAcquistato, emailUtente, dataAcquisto) " +
                 "VALUES (${idProdotto}, '${filePre.getString("Email", "")}', '${LocalDate.now().toString().trim()}')"
         ClientNetwork.retrofit.insert(query).enqueue(
             object : Callback<JsonObject>{
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     if(response.isSuccessful){
-                        Toast.makeText(this@AcquistoConsumazioniActivity, "Acquisto effettuato", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@AcquistoConsumazioniActivity, "Acquisto di "+ "${denominazioneProdotto}" +" effettuato", Toast.LENGTH_LONG).show()
                     }else{
                         System.out.println(response.message())
                     }

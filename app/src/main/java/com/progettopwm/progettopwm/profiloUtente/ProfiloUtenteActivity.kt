@@ -26,13 +26,6 @@ class ProfiloUtenteActivity : AppCompatActivity() {
     lateinit var filePre : SharedPreferences
     lateinit var fileAvatar : SharedPreferences
 
-    //----- xx aggiustare conto dei giorni della prenotazione ----- xx
-    //todo aggiustare testo tutorial
-    //----- xx FATTO xx sistemare campi di profilo ----- xx FATTO xx
-    //----- xx aggiungere prezzo nella conferma dell'acquisto ----- xx
-    //----- xx FATTO xx aggiungere controllo per non prenotare lettini delle giornate passate ----- xx FATTO xx
-    //----- xx FATTO xx nasconderre recycler view cibo ----- xx FATTO xx
-    //----- xx FATTO xx arrotondare immagini delle recycler view? ----- xx FATTO xx
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         binding = ActivityVisualizzazioneProfiloBinding.inflate(layoutInflater)

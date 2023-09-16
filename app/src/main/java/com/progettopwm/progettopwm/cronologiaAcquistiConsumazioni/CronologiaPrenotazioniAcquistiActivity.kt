@@ -80,10 +80,10 @@ class CronologiaPrenotazioniAcquistiActivity : AppCompatActivity() {
         binding.nascondiMostraCronologiaLettiniPrenotatiButton.setOnClickListener {
             if(binding.cronologiaLettiniPrenotatiRecyclerView.visibility == VISIBLE){
                 binding.cronologiaLettiniPrenotatiRecyclerView.visibility = GONE
-                binding.nascondiMostraLettiniButton.text = "Mostra lettini prenotati in passato"
+                binding.nascondiMostraCronologiaLettiniPrenotatiButton.text = "Mostra lettini prenotati in passato"
             }else if (binding.cronologiaLettiniPrenotatiRecyclerView.visibility == GONE){
                 binding.cronologiaLettiniPrenotatiRecyclerView.visibility = VISIBLE
-                binding.nascondiMostraLettiniButton.text = "Nascondi lettini prenotati in passato"
+                binding.nascondiMostraCronologiaLettiniPrenotatiButton.text = "Nascondi lettini prenotati in passato"
             }
         }
     }
@@ -101,9 +101,6 @@ class CronologiaPrenotazioniAcquistiActivity : AppCompatActivity() {
     }
 
     fun recuperaLettiniNoleggiatiPresente(){
-        /*val query = "SELECT PL.idLettinoPrenotato, PL.idPrenotazione, PL.dataInizioPrenotazione, PL.dataFinePrenotazione, L.prezzo " +
-                "FROM Utente U, Lettino L, PrenotazioneLettino PL " +
-                "WHERE U.email = PL.emailPrenotante AND L.idLettino = PL.idLettinoPrenotato AND PL.flagPrenotazione = 1 AND U.email = '${filePre.getString("Email", "")}'"*/
         val query = "SELECT PL.idLettinoPrenotato, PL.idPrenotazione, PL.dataInizioPrenotazione, PL.dataFinePrenotazione, L.prezzo, PL.flagPrenotazione " +
                 "FROM Utente U, Lettino L, PrenotazioneLettino PL " +
                 "WHERE U.email = PL.emailPrenotante AND L.idLettino = PL.idLettinoPrenotato AND PL.flagPrenotazione = 1 AND '${LocalDate.now().toString().trim()}' <= PL.dataFinePrenotazione AND U.email = '${filePre.getString("Email", "")}'" +
@@ -153,10 +150,9 @@ class CronologiaPrenotazioniAcquistiActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     Toast.makeText(
                         this@CronologiaPrenotazioniAcquistiActivity,
-                        "Errore del Database o assenza di connessione 1",
+                        "Errore del Database o assenza di connessione",
                         Toast.LENGTH_LONG
                     ).show()
-                    System.out.println("messaggio errrore1 : " + t.message + " , causa:" + t.cause + " \n completo: " + t.toString())
                 }
 
             }
@@ -164,9 +160,6 @@ class CronologiaPrenotazioniAcquistiActivity : AppCompatActivity() {
     }
 
     fun recuperaLettiniNoleggiatiInPassato(){
-        /*val query = "SELECT PL.idLettinoPrenotato, PL.idPrenotazione, PL.dataInizioPrenotazione, PL.dataFinePrenotazione, L.prezzo, PL.flagPrenotazione " +
-                "FROM Utente U, Lettino L, PrenotazioneLettino PL " +
-                "WHERE U.email = PL.emailPrenotante AND L.idLettino = PL.idLettinoPrenotato AND (PL.flagPrenotazione = 0 OR '${LocalDate.now().toString().trim()}' > PL.dataFinePrenotazione) AND U.email = '${filePre.getString("Email", "")}'"*/
         val query = "SELECT PL.idLettinoPrenotato, PL.idPrenotazione, PL.dataInizioPrenotazione, PL.dataFinePrenotazione, L.prezzo, PL.flagPrenotazione " +
                 "FROM Utente U, Lettino L, PrenotazioneLettino PL " +
                 "WHERE U.email = PL.emailPrenotante AND L.idLettino = PL.idLettinoPrenotato AND (PL.flagPrenotazione = 0 OR '${LocalDate.now().toString().trim()}' >= PL.dataFinePrenotazione) AND U.email = '${filePre.getString("Email", "")}'"
@@ -208,10 +201,9 @@ class CronologiaPrenotazioniAcquistiActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     Toast.makeText(
                         this@CronologiaPrenotazioniAcquistiActivity,
-                        "Errore del Database o assenza di connessione 2",
+                        "Errore del Database o assenza di connessione",
                         Toast.LENGTH_LONG
                     ).show()
-                    System.out.println("messaggio errrore2 : " + t.message + " , causa:" + t.cause + " \n completo: " + t.toString())
                 }
 
             }
@@ -255,10 +247,9 @@ class CronologiaPrenotazioniAcquistiActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     Toast.makeText(
                         this@CronologiaPrenotazioniAcquistiActivity,
-                        "Errore del Database o assenza di connessione 3",
+                        "Errore del Database o assenza di connessione",
                         Toast.LENGTH_LONG
                     ).show()
-                    System.out.println("messaggio errrore3 : " + t.message + " , causa:" + t.cause + " \n completo: " + t.toString())
                 }
 
             }
@@ -293,10 +284,9 @@ class CronologiaPrenotazioniAcquistiActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     Toast.makeText(
                         this@CronologiaPrenotazioniAcquistiActivity,
-                        "Errore del Database o assenza di connessione 4",
+                        "Errore del Database o assenza di connessione",
                         Toast.LENGTH_LONG
                     ).show()
-                    System.out.println("messaggio errrore4: " + t.message + " , causa:" + t.cause + " \n completo: " + t.toString())
                 }
 
             }
