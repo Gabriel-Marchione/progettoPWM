@@ -162,7 +162,7 @@ class CronologiaPrenotazioniAcquistiActivity : AppCompatActivity() {
     fun recuperaLettiniNoleggiatiInPassato(){
         val query = "SELECT PL.idLettinoPrenotato, PL.idPrenotazione, PL.dataInizioPrenotazione, PL.dataFinePrenotazione, L.prezzo, PL.flagPrenotazione " +
                 "FROM Utente U, Lettino L, PrenotazioneLettino PL " +
-                "WHERE U.email = PL.emailPrenotante AND L.idLettino = PL.idLettinoPrenotato AND (PL.flagPrenotazione = 0 OR '${LocalDate.now().toString().trim()}' >= PL.dataFinePrenotazione) AND U.email = '${filePre.getString("Email", "")}'"
+                "WHERE U.email = PL.emailPrenotante AND L.idLettino = PL.idLettinoPrenotato AND (PL.flagPrenotazione = 0 OR '${LocalDate.now().toString().trim()}' > PL.dataFinePrenotazione) AND U.email = '${filePre.getString("Email", "")}'"
         System.out.println(query + "ciao2 ")
         val data = ArrayList<LettiniItemsViewModel>()
         ClientNetwork.retrofit.select(query).enqueue(

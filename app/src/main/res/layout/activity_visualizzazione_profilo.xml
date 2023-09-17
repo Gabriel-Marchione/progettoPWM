@@ -115,6 +115,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout13">
 
             <LinearLayout
+                android:id="@+id/linearLayoutEmail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
@@ -144,6 +145,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearLayoutDataNascita"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
@@ -173,6 +175,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearLayoutNumTel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
@@ -202,6 +205,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearLayoutCartaCredito"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
@@ -231,6 +235,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearLayoutPassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"

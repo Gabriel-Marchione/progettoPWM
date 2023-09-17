@@ -5,7 +5,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
+import android.view.View.GONE
 import android.view.Window
+import android.webkit.RenderProcessGoneDetail
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.progettopwm.R
@@ -18,6 +20,7 @@ import com.progettopwm.progettopwm.BenvenutoActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Boolean.FALSE
 import java.util.*
 
 class ProfiloUtenteActivity : AppCompatActivity() {
@@ -125,6 +128,27 @@ class ProfiloUtenteActivity : AppCompatActivity() {
                         "Errore del Database o assenza di connessione",
                         Toast.LENGTH_LONG
                     ).show()
+                    binding.nomeTextView.visibility = GONE
+                    binding.cognomeTextView.visibility = GONE
+                    binding.avatarImageView.isClickable = FALSE
+                    binding.cambiaAvatarButton.isClickable = FALSE
+                    binding.modificaDatiButton.isClickable = FALSE
+                    binding.modificaPasswordButton.isClickable = FALSE
+
+                    val listaCampiBinding = listOf(binding.linearLayoutEmail, binding.linearLayoutDataNascita, binding.linearLayoutNumTel, binding.linearLayoutCartaCredito, binding.linearLayoutPassword)
+                    for (oggetto in listaCampiBinding){
+                        oggetto.visibility = GONE
+                    }
+
+                    val listaBinding = listOf(binding.avatarImageView, binding.cambiaAvatarButton, binding.modificaDatiButton,binding.modificaPasswordButton)
+
+                    for(oggetto in listaBinding){
+                        oggetto.setOnClickListener {
+                            Toast.makeText(this@ProfiloUtenteActivity, "Operazione non disponibile in assenza di connessione", Toast.LENGTH_LONG).show()
+                        }
+                    }
+
+
                 }
 
             }

@@ -133,9 +133,11 @@ class PrenotazioneDialog(context : Context, indiceLettino : Int, dataCorrente : 
                     "FROM Utente U, Lettino L, PrenotazioneLettino PL " +
                     "WHERE U.email = PL.emailPrenotante AND L.idLettino = PL.idLettinoPrenotato " +
                     "AND PL.flagPrenotazione = 1 " +
-                    "AND PL.idLettinoPrenotato = '${idLettino}' " +
-                    "AND ('${dataInizio}' BETWEEN PL.dataInizioPrenotazione AND PL.dataFinePrenotazione " +
-                    "OR '${dataFine}' BETWEEN PL.dataInizioPrenotazione AND PL.dataFinePrenotazione)"
+                    "AND PL.idLettinoPrenotato = '$idLettino' " +
+                    "AND ('$dataInizio' BETWEEN PL.dataInizioPrenotazione AND PL.dataFinePrenotazione " +
+                    "OR '$dataFine' BETWEEN PL.dataInizioPrenotazione AND PL.dataFinePrenotazione " +
+                    "OR PL.dataInizioPrenotazione BETWEEN '$dataInizio' AND '$dataFine' " +
+                    "OR PL.dataFinePrenotazione BETWEEN '$dataInizio' AND '$dataFine')"
         System.out.println("disponibilita " + query)
         ClientNetwork.retrofit.select(query).enqueue(
             object : Callback<JsonObject> {
